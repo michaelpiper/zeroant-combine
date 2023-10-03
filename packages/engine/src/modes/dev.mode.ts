@@ -19,7 +19,7 @@ const dev = async (...args: string[]) => {
   const tsconfig = commentjson.parse(tsconfigString ?? '{}') as any
   const outDir: string = tsconfig?.compilerOptions?.outDir ?? '.'
   nodemon({
-    script: `npx zeroant serve`,
+    exec: script,
     cwd: process.cwd(),
     watch: [`${outDir}/**/*.js`],
     ignore: ['**/test/**', '**/docs/**'],

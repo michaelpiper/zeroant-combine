@@ -1,5 +1,8 @@
+import { readFileSync } from 'fs';
 import { availableType, defaultType } from './get-mode.js';
 import nodemon from 'nodemon';
+import commentjson from 'comment-json';
+import { ABS_PATH } from 'zeroant-factory/config.factory';
 const dev = async (...args) => {
     let script = null;
     if (defaultType.includes(args.at(0))) {
@@ -12,10 +15,13 @@ const dev = async (...args) => {
         console.log('Unknown server type');
         process.exit();
     }
+    const tsconfigString = readFileSync(ABS_PATH + '/tsconfig.json')?.toString();
+    const tsconfig = commentjson.parse(tsconfigString ?? '{}');
+    const outDir = tsconfig?.compilerOptions?.outDir ?? '.';
     nodemon({
         script: `npx zeroant serve`,
         cwd: process.cwd(),
-        watch: ['application/**/*.js'],
+        watch: [`${outDir}/**/*.js`],
         ignore: ['**/test/**', '**/docs/**'],
         delay: 300
     });
