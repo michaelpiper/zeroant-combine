@@ -29,7 +29,7 @@
     "koa": "^2.14.2"
   },
   "peerDependencies": {
-    "zeroant-factory": "^0.0.1-alpha.0"
+    "zeroant-factory": "^1.0.0-alpha.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",

@@ -69,12 +69,12 @@
     "@prisma/client": "^5.3.0",
     "prisma": "^5.3.0",
     "zeroant-config": "^1.0.0-alpha.1",
-    "zeroant-constant": "^0.0.1-alpha.0",
-    "zeroant-factory": "^0.0.1-alpha.0",
+    "zeroant-constant": "^1.0.0-alpha.0",
+    "zeroant-factory": "^1.0.0-alpha.0",
     "zeroant-loader": "^1.0.0-alpha.1",
     "zeroant-logger": "^1.0.0-alpha.1",
-    "zeroant-response": "^0.0.1-alpha.0",
-    "zeroant-util": "^0.0.1-alpha.0"
+    "zeroant-response": "^1.0.0-alpha.0",
+    "zeroant-util": "^1.0.0-alpha.0"
   },
   "devDependencies": {
     "@types/koa": "^2.13.9",
