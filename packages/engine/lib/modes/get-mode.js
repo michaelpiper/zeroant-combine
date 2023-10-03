@@ -1,9 +1,11 @@
+export const availableType = ['cdn', 'idp', 'socket', 'admin', 'worker', 'api'];
+export const defaultType = [null, undefined, 'all'];
 export default async (type) => {
-    if ([null, undefined, 'all'].includes(type)) {
+    if (defaultType.includes(type)) {
         const loaders = await import('../actions/combine.server.js');
         return loaders.default;
     }
-    if (['cdn', 'idp', 'socket', 'admin', 'worker', 'api'].includes(type)) {
+    if (availableType.includes(type)) {
         const loaders = await import(`./${type}.server.js`);
         return loaders.default;
     }
