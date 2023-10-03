@@ -1,6 +1,6 @@
 {
   "name": "zeroant",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant.git",
   "main": "lib/index.js",
@@ -47,7 +47,6 @@
     "adminjs": "^7.0.0",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
-    "nodemon": "^3.0.1",
     "eslint": "^8.40.0",
     "flat": "^5.0.2",
     "koa": "^2.14.2",
@@ -59,15 +58,16 @@
     "koa-static": "^4.0.2",
     "lodash": "^4.17.21",
     "mysql": "^2.18.1",
+    "nodemon": "^3.0.1",
     "react-json-editor-ajrm": "^2.5.14",
     "zeroant-common": "^1.0.0-alpha.2",
-    "zeroant-config": "^1.0.0-alpha.2",
-    "zeroant-constant": "^0.0.1-alpha.0",
-    "zeroant-factory": "^1.0.0-alpha.2",
-    "zeroant-loader": "^1.0.0-alpha.2",
-    "zeroant-logger": "^1.0.0-alpha.2",
-    "zeroant-response": "^1.0.0-alpha.2",
-    "zeroant-util": "^0.0.1-alpha.0"
+    "zeroant-config": "^1.0.0-alpha.3",
+    "zeroant-constant": "^1.0.0-alpha.3",
+    "zeroant-factory": "^1.0.0-alpha.3",
+    "zeroant-loader": "^1.0.0-alpha.3",
+    "zeroant-logger": "^1.0.0-alpha.3",
+    "zeroant-response": "^1.0.0-alpha.3",
+    "zeroant-util": "^1.0.0-alpha.3"
   },
   "peerDependencies": {
     "@prisma/client": "^5.3.0",
@@ -83,6 +83,7 @@
     "@types/koa-static": "^4.0.2",
     "@types/koa__cors": "^4.0.0",
     "@types/lodash": "^4.14.195",
+    "@types/nodemon": "^1.19.3",
     "@types/react-json-editor-ajrm": "^2.5.4",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
@@ -90,7 +91,6 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
-    "@types/nodemon": "^1.19.3",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }
