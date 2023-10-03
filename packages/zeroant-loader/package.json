@@ -1,6 +1,6 @@
 {
   "name": "zeroant-loader",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "loader modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-loader.git",
   "main": "lib/index.js",
