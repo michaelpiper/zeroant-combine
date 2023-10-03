@@ -17,7 +17,7 @@ const dev = async (...args: string[]) => {
   }
   const tsconfigString = readFileSync(ABS_PATH + '/tsconfig.json')?.toString()
   const tsconfig = commentjson.parse(tsconfigString ?? '{}') as any
-  const outDir = tsconfig?.compilerOptions?.outDir ?? '.'
+  const outDir: string = tsconfig?.compilerOptions?.outDir ?? '.'
   nodemon({
     script: `npx zeroant serve`,
     cwd: process.cwd(),
