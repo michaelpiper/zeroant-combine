@@ -1,6 +1,6 @@
 {
   "name": "zeroant-config",
-  "version": "0.0.1-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "config modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-config.git",
   "main": "lib/index.js",
