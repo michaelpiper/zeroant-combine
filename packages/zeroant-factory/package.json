@@ -1,6 +1,6 @@
 {
   "name": "zeroant-factory",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "Factory modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-factory.git",
   "main": "lib/index.js",
@@ -24,21 +24,21 @@
   "author": "Michael Piper",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^8.1.0",
+    "bull": "^4.10.4",
     "eslint": "^8.40.0",
     "koa": "^2.14.2",
-    "bull": "^4.10.4",
     "koa-qs": "^3.0.0",
     "koa-router": "^12.0.0",
     "winston": "^3.8.2",
-    "@faker-js/faker": "^8.1.0",
-    "zeroant-response": "^1.0.0",
-    "zeroant-constant": "^1.0.0"
+    "zeroant-constant": "^0.0.1-alpha.0",
+    "zeroant-response": "^0.0.1-alpha.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.195",
     "@types/koa": "^2.13.9",
     "@types/koa-qs": "^2.0.1",
     "@types/koa-router": "^7.4.4",
+    "@types/lodash": "^4.14.195",
     "@types/node": "^20.8.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"

@@ -1,6 +1,6 @@
 {
   "name": "zeroant-logger",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "logger modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-logger.git",
   "main": "lib/index.js",
@@ -25,11 +25,10 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^8.40.0",
-    "zeroant-config":"^1.0.0",
-    "winston": "^3.10.0"
+    "winston": "^3.10.0",
+    "zeroant-config": "^0.0.1-alpha.0"
   },
   "devDependencies": {
-   
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }

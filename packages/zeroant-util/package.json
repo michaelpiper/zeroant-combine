@@ -1,6 +1,6 @@
 {
   "name": "zeroant-util",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "util modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-util.git",
   "main": "lib/index.js",
@@ -25,18 +25,18 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^8.40.0",
+    "koa": "^2.14.2",
     "nanoid": "^5.0.1",
     "shortid": "^2.2.16",
-    "uuid":"^7.0.0",
-    "koa": "^2.14.2"
+    "uuid": "^7.0.0"
   },
   "devDependencies": {
     "@types/koa": "^2.13.9",
     "@types/koa-router": "^7.4.5",
     "@types/node": "^20.8.0",
-    "tsconfig-paths": "^4.2.0",
     "@types/shortid": "^0.0.29",
     "@types/uuid": "^8.3.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "zeroant-response",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "Response modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-response.git",
   "main": "lib/index.js",
@@ -25,11 +25,11 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^8.40.0",
+    "joi": "^17.10.2",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.0",
-    "joi": "^17.10.2",
     "lodash": "^4.17.21",
-    "zeroant-constant":"^1.0.0"
+    "zeroant-constant": "^0.0.1-alpha.0"
   },
   "devDependencies": {
     "@types/koa": "^2.13.9",
