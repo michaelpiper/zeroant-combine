@@ -1,0 +1,45 @@
+import { type ParsedQs } from 'qs';
+import { type IPaginationResult } from '../interfaces/pagination.interface.js';
+import { type ModelFactory } from 'zeroant-factory/model.factory';
+export declare class PaginationDto<T = Record<string, any>, Relation = Record<string, any>> {
+    #private;
+    count?: number;
+    sort: Record<string, 'asc' | 'desc'>;
+    relations: Relation;
+    filter: T;
+    filterWhiteList: string[];
+    relationWhiteList: string[];
+    sortWhiteList: string[];
+    models: Record<string, ModelFactory>;
+    static fromQuery(query: ParsedQs, whiteList?: {
+        relation?: string[];
+        filter?: string[];
+        sort?: string[];
+    }): PaginationDto<Record<string, any>, Record<string, any>>;
+    fromQuery(query: ParsedQs): this;
+    setStart(start: number): this;
+    setPage(page: number): this;
+    setLimit(limit: number): this;
+    setFilterWhiteList(...filterWhiteList: string[]): this;
+    setSortWhiteList(...sortWhiteList: string[]): this;
+    setRelationWhiteList(...relationWhiteList: string[]): this;
+    setSortFromQuery(query: any): this;
+    setRelationsFromQuery(query: any): this;
+    getWhitelist(whiteList: string[], key: string): (string | undefined)[];
+    setFilterFromQuery(query: any): this;
+    setSort(sort: Record<string, 'asc' | 'desc'>): this;
+    setFilter(filter: T): this;
+    setRelations(relations: Relation): this;
+    getRelations(): Relation;
+    getLimit(): number;
+    getSort(): any;
+    getFilter(): any;
+    getPage(): number;
+    getStart(): number;
+    getSkip(): number;
+    getTotalPages(): number;
+    setCount(count: number): this;
+    ensureCount(): void;
+    buildResult<T>(result: T[]): IPaginationResult<T>;
+    hash(prefix?: string): string;
+}

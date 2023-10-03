@@ -1,0 +1,40 @@
+{
+  "name": "zeroant-loader",
+  "version": "1.0.0",
+  "description": "loader modules for zeroant",
+  "repository": "git@github.com:michaelpiper/zeroant-loader.git",
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint ./src/* --fix",
+    "build": "rm -rf ./lib && tsc -p tsconfig.json",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "exports": {
+    "./*": "./lib/*.js",
+    "./**/*": "./lib/**/*.js"
+  },
+  "keywords": [
+    "koa",
+    "ts",
+    "KISS",
+    "SOLID",
+    "DRY"
+  ],
+  "author": "Michael Piper",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^8.40.0",
+    "koa": "^2.14.2",
+    "zeroant-factory":"^1.0.0",
+    "zeroant-config":"^1.0.0",
+    "zeroant-logger":"^1.0.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.9",
+    "@types/koa-router": "^7.4.5",
+    "@types/node": "^20.8.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+application/
+.env
+*.env
+.application
+db.sqlite
+storage/
+*.log
+.adminjs
+

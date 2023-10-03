@@ -1,0 +1,70 @@
+import { AddonConfig } from 'zeroant-factory/addon.config';
+export class AdminConfig extends AddonConfig {
+    get cdnBaseUrl() {
+        return this.config.get('CDN_BASE_URL');
+    }
+    get watchAdmin() {
+        return this.config.get('ADMIN_WATCH', 'off') === 'on';
+    }
+    get userName() {
+        return this.config.get('ADMIN_AUTH_USER', '');
+    }
+    get userAvatarUrl() {
+        return this.config.get('ADMIN_USER_ROOT_AVATAR_URL', null);
+    }
+    get userTitle() {
+        return this.config.get('ADMIN_USER_ROOT_TITLE', 'Root Admin');
+    }
+    get userRole() {
+        return this.config.get('ADMIN_USER_ROOT_ROLE', 'root');
+    }
+    get userId() {
+        return this.config.get('ADMIN_USER_ROOT_ID', '0');
+    }
+    get theme() {
+        return this.config.get('ADMIN_USER_ROOT_THEME', 'default');
+    }
+    get userEmail() {
+        return this.config.get('ADMIN_USER_ROOT_EMAIL');
+    }
+    get password() {
+        return this.config.get('ADMIN_AUTH_PASS', '');
+    }
+    get secureSession() {
+        return this.config.get('ADMIN_SECURE_SESSION', 'false') === 'true';
+    }
+    get sessionKeys() {
+        return this.config.appKeys;
+    }
+    get auth() {
+        return {
+            user: this.userName,
+            pass: this.password
+        };
+    }
+    get options() {
+        return this._options();
+    }
+    get aws() {
+        return {
+            region: this.config.get('AWS_REGION'),
+            credentials: {
+                accessKeyId: this.config.get('AWS_ACCESS_KEY_ID'),
+                secretAccessKey: this.config.get('AWS_ACCESS_SECRET')
+            },
+            expires: 0,
+            bucket: this.config.get('AWS_BUCKET_NAME')
+        };
+    }
+    _options() {
+        return {
+            rootPath: '/admin',
+            settings: {},
+            branding: {
+                companyName: 'ZeroAnt',
+                withMadeWithLove: false
+            }
+        };
+    }
+}
+//# sourceMappingURL=admin.config.js.map

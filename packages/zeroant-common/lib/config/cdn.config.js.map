@@ -1,0 +1,1 @@
+{"version":3,"file":"cdn.config.js","sourceRoot":"","sources":["../../src/config/cdn.config.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,MAAM,8BAA8B,CAAA;AAE1D,MAAM,OAAO,SAAU,SAAQ,WAAW;IACxC,IAAI,GAAG;QACL,OAAO,IAAI,CAAC,MAAM,CAAC,GAAG,CAAS,cAAc,CAAC,CAAA;IAChD,CAAC;CACF"}

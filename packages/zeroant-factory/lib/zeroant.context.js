@@ -1,0 +1,198 @@
+import { createServer } from 'http';
+import { InternalServerError } from 'zeroant-response/serverErrors/internalServerError.serverError';
+import { ErrorCode, ErrorDescription } from 'zeroant-constant/response.enum';
+import { ZeroantEvent } from 'zeroant-constant/index';
+import { EventEmitter } from 'events';
+export class ZeroantContext {
+    Config;
+    static PORT = 8080;
+    static HOSTNAME = '127.0.0.1';
+    _server;
+    _port;
+    _hostname;
+    #store = new Map();
+    #workers = new Map();
+    #event = new EventEmitter();
+    #registry;
+    _servers = [];
+    constructor(Config) {
+        this.Config = Config;
+    }
+    initWorkers(workers) {
+        for (const Worker of workers) {
+            const worker = new Worker(this);
+            this.#workers.set(worker.name, worker);
+        }
+    }
+    getWorkerByName(workerName) {
+        return this.#workers.get(workerName) ?? null;
+    }
+    getWorkerNames() {
+        return this.#workers.keys();
+    }
+    get workers() {
+        return {
+            get: (Worker) => this.getWorker(Worker)
+        };
+    }
+    getWorkers() {
+        const workers = [];
+        for (const worker of this.#workers.values()) {
+            workers.push(worker);
+        }
+        return workers;
+    }
+    getWorker(Worker) {
+        for (const worker of this.#workers.values()) {
+            if (worker instanceof Worker) {
+                return worker;
+            }
+        }
+        throw new InternalServerError(ErrorCode.UNIMPLEMENTED_EXCEPTION, ErrorDescription.UNIMPLEMENTED_EXCEPTION, `Worker ${Worker.name} not registered check common/registry.ts for more information`);
+    }
+    listen(callback) {
+        this.beforeStart();
+        const config = this.getConfig();
+        this._port = config.serverPort ?? ZeroantContext.PORT;
+        this._hostname = config.serverHostname ?? ZeroantContext.HOSTNAME;
+        const callbacks = this._servers.map((server) => server.callback());
+        this._server = createServer((req, res) => {
+            void (async (req, res) => {
+                for (const callback of callbacks) {
+                    await callback(req, res);
+                }
+            })(req, res);
+        });
+        this._server.listen(this._port, this._hostname, () => {
+            this.onStart();
+            if (typeof callback === 'function') {
+                callback();
+            }
+        });
+    }
+    onStart() {
+        this.event.emit(ZeroantEvent.START);
+        for (const plugin of this.plugin.values()) {
+            plugin.onStart();
+        }
+        for (const server of this._servers) {
+            server.onStart();
+        }
+        ;
+        this.config.logging('info', () => {
+            console.info(new Date(), '[ZeroantContext]: Running On Port', this._port);
+        });
+    }
+    beforeStart() {
+        this.event.emit(ZeroantEvent.BEFORE_START);
+        for (const plugin of this.plugin.values()) {
+            plugin.beforeStart();
+        }
+        for (const server of this._servers) {
+            server.beforeStart();
+        }
+    }
+    has(key) {
+        return this.#store.get(key) !== undefined && this.#store.get(key) !== null;
+    }
+    close() {
+        this.event.emit(ZeroantEvent.CLOSE);
+        for (const plugin of this.plugin.values()) {
+            plugin.close();
+        }
+        for (const server of this._servers) {
+            server.close();
+        }
+        if (!this._server) {
+            return;
+        }
+        ;
+        this.config.logging('info', () => {
+            console.info(new Date(), '[ZeroantContext]: Stopped');
+        });
+        this._server.close((err) => {
+            if (err != null) {
+                throw Error();
+            }
+        });
+    }
+    bootstrap(registry) {
+        if (![null, undefined].includes(this.#registry)) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `${new Date().toISOString()} Registry already bootstrap for zeroant and it can't be overridden`);
+        }
+        this.#registry = registry;
+        registry.bootstrap(this);
+    }
+    get registry() {
+        if ([null, undefined].includes(this.#registry)) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `${new Date().toISOString()} Registry not register for zeroant yet, please bootstrap before using registry`);
+        }
+        return this.#registry;
+    }
+    ready() {
+        this.#registry.ready(this);
+    }
+    initServer(Server, registry) {
+        const server = new Server(this);
+        server.initialize(registry);
+        this._servers.push(server);
+        this.#store.set(`server:${Server.name}`, server);
+    }
+    getServer(Server) {
+        const server = this.#store.get(`server:${Server.name}`);
+        if (server === null || server === undefined) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `${Server.name} Server Not Init`);
+        }
+        return server;
+    }
+    async initPlugin(plugin) {
+        this.#store.set('plugin', plugin);
+        await plugin.initialize();
+    }
+    getPlugins() {
+        const plugin = this.#store.get('plugin');
+        if (plugin === null || plugin === undefined) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, 'Plugin Not Init');
+        }
+        return plugin;
+    }
+    async initConfig(config) {
+        this.#store.set('config', config);
+    }
+    async initLogger(logger) {
+        this.#store.set('logger', logger);
+    }
+    getLogger() {
+        const logger = this.#store.get('logger');
+        if (logger === null || logger === undefined) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, 'Logger Not Init');
+        }
+        return logger;
+    }
+    getConfig() {
+        const config = this.#store.get('config');
+        if (config === null || config === undefined) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, 'Config Not Init');
+        }
+        return config;
+    }
+    getPlugin(addon) {
+        return this.plugin.get(addon);
+    }
+    get log() {
+        return this.getLogger();
+    }
+    get server() {
+        return this._server;
+    }
+    get plugin() {
+        return this.getPlugins();
+    }
+    get config() {
+        return this.getConfig();
+    }
+    get event() {
+        return this.#event;
+    }
+}
+//# sourceMappingURL=zeroant.context.js.map

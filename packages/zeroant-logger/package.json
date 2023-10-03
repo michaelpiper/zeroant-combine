@@ -1,0 +1,36 @@
+{
+  "name": "zeroant-logger",
+  "version": "1.0.0",
+  "description": "logger modules for zeroant",
+  "repository": "git@github.com:michaelpiper/zeroant-logger.git",
+  "main": "lib/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint ./src/* --fix",
+    "build": "rm -rf ./lib && tsc -p tsconfig.json",
+    "prepublish": "npm run lint && npm run build"
+  },
+  "exports": {
+    "./*": "./lib/*.js",
+    "./**/*": "./lib/**/*.js"
+  },
+  "keywords": [
+    "koa",
+    "ts",
+    "KISS",
+    "SOLID",
+    "DRY"
+  ],
+  "author": "Michael Piper",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^8.40.0",
+    "zeroant-config":"^1.0.0",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+   
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
+  }
+}
