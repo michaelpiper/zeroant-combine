@@ -1,6 +1,6 @@
 {
   "name": "zeroant-response",
-  "version": "0.0.1-alpha.0",
+  "version": "1.0.0-alpha.2",
   "description": "Response modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-response.git",
   "main": "lib/index.js",

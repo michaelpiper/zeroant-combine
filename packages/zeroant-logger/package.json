@@ -1,6 +1,6 @@
 {
   "name": "zeroant-logger",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "logger modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-logger.git",
   "main": "lib/index.js",
