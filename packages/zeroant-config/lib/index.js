@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 import { join, resolve } from 'path';
-import { APP_PATH, ConfigFactory } from 'zeroant-factory/config.factory';
-const ENV_FILE_PATH = resolve(join(APP_PATH, '.env'));
+import { ABS_PATH, ConfigFactory } from 'zeroant-factory/config.factory';
+const ENV_FILE_PATH = resolve(join(ABS_PATH, '.env'));
 const isEnvFound = dotenv.config({ path: ENV_FILE_PATH });
 if (isEnvFound.error != null) {
-    console.log(join(APP_PATH, '.env'));
+    console.log(join(ABS_PATH, '.env'));
     throw new Error('Cannot find .env file.');
 }
 export class Config extends ConfigFactory {
