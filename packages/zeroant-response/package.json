@@ -28,7 +28,9 @@
     "joi": "^17.10.2",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
     "zeroant-constant": "^0.0.1-alpha.0"
   },
   "devDependencies": {

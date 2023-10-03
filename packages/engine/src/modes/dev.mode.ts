@@ -6,7 +6,7 @@ const dev = async (...args: string[]) => {
     console.log('Unknown server type')
     return
   }
-  const child = spawn('npm', ['run', 'nodemon', `--exec "npm run serve ${args.join(' ')}"`], {
+  const child = spawn('npm', ['run', 'nodemon', `--exec="npm run zeroant serve ${args.join(' ')}"`], {
     cwd: process.cwd()
   })
   child.stdout.pipe(process.stdout)

@@ -25,7 +25,9 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^8.40.0",
-    "koa": "^2.14.2",
+    "koa": "^2.14.2"
+  },
+  "peerDependencies": {
     "zeroant-config": "^1.0.0-alpha.1",
     "zeroant-factory": "^0.0.1-alpha.0",
     "zeroant-logger": "^1.0.0-alpha.1"

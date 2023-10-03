@@ -25,7 +25,9 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^8.40.0",
-    "winston": "^3.10.0",
+    "winston": "^3.10.0"
+  },
+  "peerDependencies": {
     "zeroant-config": "^1.0.0-alpha.1"
   },
   "devDependencies": {
