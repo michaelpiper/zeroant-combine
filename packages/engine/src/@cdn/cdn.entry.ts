@@ -10,6 +10,6 @@ export default class CDNRouteEntry extends RegistryRouteEntryFactory {
 
   name = 'cdn'
   buildRoutes() {
-    this.router.use(mount('/cdn', serve(path.join(this.context.config.appPath, 'public'))))
+    this.router.use(mount('/cdn', serve(path.join(this.context.config.absPath, 'public'))))
   }
 }

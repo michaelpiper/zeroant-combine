@@ -1,6 +1,5 @@
 import { type ZeroantContext } from './zeroant.context.js'
 import Queue, { type Job } from 'bull'
-// import { RedisPlugin } from '../common/plugins/redis.plugin.js'
 import { type ConfigFactory } from './config.factory.js'
 import { type RedisOptions } from 'ioredis'
 interface WorkerConfigOptions {
@@ -63,6 +62,13 @@ export abstract class WorkerFactory<T, F extends string> {
         break
       }
       default: {
+        if (process.env.REDIS_URI !== undefined) {
+          this.#queue = new Queue<T>(this.name, process.env.REDIS_URI, {
+            redis: {},
+            defaultJobOptions: this.options ?? {}
+          })
+          break
+        }
         this.#queue = new Queue<T>(this.name, {
           defaultJobOptions: this.options ?? {}
         })
@@ -158,7 +164,7 @@ export abstract class WorkerFactory<T, F extends string> {
       const log = job.log.bind(job)
       console.log('[-------------------------------------------]')
       console.log(`Processing ${this.name}->${name} Job: ${id} `)
-      console.log(`${this.name}->${name}' Worker Processor data ----->`, JSON.stringify(data))
+      console.log(`${this.name}->${name} Worker Processor data ----->`, JSON.stringify(data))
       try {
         await callback(job, done, log)
       } catch (caught: any) {

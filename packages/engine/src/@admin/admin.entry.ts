@@ -1,4 +1,4 @@
-import AdminJS from 'adminjs'
+import AdminJS, { AdminPages } from 'adminjs'
 import Router from 'koa'
 import AdminJSKoa from '@adminjs/koa'
 // import lodash from 'lodash'
@@ -29,8 +29,8 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
   dynamicRoute = true
   protected admin: AdminJS
   private readonly serverAdapter = new KoaAdapter()
-  constructor(context: ZeroantContext<ConfigFactory>) {
-    super(context)
+  pages: AdminPages = {}
+  buildRoutes() {
     AdminJS.registerAdapter({
       Resource: AdminJSPrisma.Resource,
       Database: AdminJSPrisma.Database
@@ -42,9 +42,6 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
     this.context.on(ZeroantEvent.BEFORE_START, () => {
       this.beforeStart()
     })
-  }
-
-  buildRoutes() {
     const config = this.context.config.addons.get(AdminConfig)
     const options = config.options
     const mountPoint = '/admin'
@@ -54,17 +51,19 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
     }
     const admin = new AdminJS({
       ...options,
-      pages: {
-        // SchemaPlayground: {
-        //   icon: 'Schema Playground',
-        //   handler: async (_request: Request, _response: Response, _context: PageContext) => {
-        //     return {
-        //       text: 'I am fetched from the backend'
-        //     }
-        //   },
-        //   component: Components.SchemaPlayground
-        // }
-      },
+      pages: this.pages,
+      
+      // {
+      //   // SchemaPlayground: {
+      //   //   icon: 'Schema Playground',
+      //   //   handler: async (_request: Request, _response: Response, _context: PageContext) => {
+      //   //     return {
+      //   //       text: 'I am fetched from the backend'
+      //   //     }
+      //   //   },
+      //   //   component: Components.SchemaPlayground
+      //   // }
+      // },
       resources: createResources(config, db),
       rootPath: mountPoint,
       componentLoader

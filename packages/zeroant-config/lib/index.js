@@ -9,8 +9,6 @@ if (isEnvFound.error != null) {
 }
 export class Config extends ConfigFactory {
     _config;
-    samplePlatformAudience;
-    samplePlatformPublicKey;
     baseUrl;
     apiBaseUrl;
     static #instance = new Config(process.env);
@@ -22,8 +20,6 @@ export class Config extends ConfigFactory {
         this._config = _config;
         this.baseUrl = this.get('BASE_URL', null);
         this.apiBaseUrl = this.get('API_BASE_URL', null);
-        this.samplePlatformAudience = this.get('SAMPLE_PLATFORM_AUDIENCE', null);
-        this.samplePlatformPublicKey = this.get('SAMPLE_PLATFORM_PUBLIC_KEY', '123123');
     }
 }
 //# sourceMappingURL=index.js.map

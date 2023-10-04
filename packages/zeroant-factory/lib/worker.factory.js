@@ -45,6 +45,13 @@ export class WorkerFactory {
                 break;
             }
             default: {
+                if (process.env.REDIS_URI !== undefined) {
+                    this.#queue = new Queue(this.name, process.env.REDIS_URI, {
+                        redis: {},
+                        defaultJobOptions: this.options ?? {}
+                    });
+                    break;
+                }
                 this.#queue = new Queue(this.name, {
                     defaultJobOptions: this.options ?? {}
                 });
@@ -107,7 +114,7 @@ export class WorkerFactory {
             const log = job.log.bind(job);
             console.log('[-------------------------------------------]');
             console.log(`Processing ${this.name}->${name} Job: ${id} `);
-            console.log(`${this.name}->${name}' Worker Processor data ----->`, JSON.stringify(data));
+            console.log(`${this.name}->${name} Worker Processor data ----->`, JSON.stringify(data));
             try {
                 await callback(job, done, log);
             }

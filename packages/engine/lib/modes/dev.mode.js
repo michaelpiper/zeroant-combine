@@ -29,11 +29,11 @@ const dev = async (...args) => {
         delay: 300,
         signal: 'SIGTERM'
     })
-        .on('exit', () => {
-        process.kill(process.pid);
+        .on('exit', (code) => {
+        process.exit(code);
     })
-        .on('quit', () => {
-        process.kill(process.pid);
+        .on('quit', (code) => {
+        process.exit(code);
     });
 };
 export default dev;
