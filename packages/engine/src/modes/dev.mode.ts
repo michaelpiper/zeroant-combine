@@ -9,7 +9,7 @@ const dev = async (...args: string[]) => {
     script = 'npx zeroant serve'
   }
   if (availableType.includes(args.at(0) as never)) {
-    script = `npx zeroant serve ${args.at(0) as string}`
+    script = `npx zeroant serve ${args.join(' ') as string}`
   }
   if (script == null) {
     console.log('Unknown server type')

@@ -1,4 +1,3 @@
-/// <reference types="react" resolution-mode="require"/>
 type jsObject = string | number | null;
 type json = jsObject | jsObject[];
 export interface JSONInputEvent {

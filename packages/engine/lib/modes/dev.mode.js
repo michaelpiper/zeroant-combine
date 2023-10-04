@@ -23,7 +23,8 @@ const dev = async (...args) => {
         cwd: process.cwd(),
         watch: [`${outDir}/**/*.js`],
         ignore: ['**/test/**', '**/docs/**'],
-        delay: 300
+        delay: 300,
+        signal: 'SIGTERM'
     });
 };
 export default dev;

@@ -23,8 +23,9 @@ const createAction =
 // Worker
 program.name('zeroant').description('CLI to some ZeroAnt utilities').version('0.1.0')
 program.command('init').argument('[action]', 'Dev').action(createAction(init))
-program.command('dev').argument('[action]', 'Dev').action(createAction(dev))
-program.command('serve').argument('[action]', 'Serve').action(createAction(serve))
+program.command('dev').argument('[action...]', 'Dev').action(createAction(dev))
+program.command('serve').argument('[action...]', 'Serve').action(createAction(serve))
+program.command('worker').argument('[name]', 'Worker').action(createAction((...args)=>serve('worker', ...args)))
 // program.command('worker').argument('[action]', 'Worker ').action(createAction(serveWorker))
 
 program.parse()

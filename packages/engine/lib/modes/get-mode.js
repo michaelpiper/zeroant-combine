@@ -6,7 +6,7 @@ export default async (type) => {
         return loaders.default;
     }
     if (availableType.includes(type)) {
-        const loaders = await import(`./${type}.server.js`);
+        const loaders = await import(`../actions/${type}.server.js`);
         return loaders.default;
     }
 };

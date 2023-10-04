@@ -1,11 +1,12 @@
 import { BaseRegistry } from 'zeroant-common/base.registry';
-import 'zeroant-loader/zeroant';
+import { ZeroantEvent } from 'zeroant-constant/zeroant.enum';
+import zeroant from 'zeroant-loader/zeroant';
 export class Registry extends BaseRegistry {
     onBootstrap(callback) {
-        this.bootstrap = callback;
+        zeroant.on(ZeroantEvent.BOOTSTRAP, callback);
     }
     onReady(callback) {
-        this.ready = callback;
+        zeroant.on(ZeroantEvent.READY, callback);
     }
 }
 //# sourceMappingURL=registry.js.map

@@ -1,5 +1,5 @@
 import loaders from 'zeroant-loader/index'
-void (async () => {
+export default async () => {
   const SERVER_MODE = 'standalone'
   const SERVER_APP = ''
   const server = await loaders({
@@ -10,4 +10,4 @@ void (async () => {
     USE_PUB_SOCKET: 'false'
   })
   server.listen()
-})()
+}

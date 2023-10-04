@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander'
 import { spawn } from 'child_process'
 import type * as events from 'events'
 import { type SERVER_MODE } from 'zeroant-factory/config.factory'
 import loaders from 'zeroant-loader/index'
-const program = new Command()
 const workers: Record<string, any & events.EventEmitter> = {}
 const createWorker = (name: string) => {
   workers[name] = spawn('npm', ['run', 'worker', 'start', name], {
@@ -27,11 +25,7 @@ const createWorker = (name: string) => {
   return workers[name]
 }
 // Worker
-program.name('worker').description('CLI to some Worker utilities').version('0.1.0')
-program
-  .command('dev')
-  .argument('[worker]', 'Start worker')
-  .action(async function (workerName?: string) {
+const combine =  async function (workerName?: string) {
     const SERVER_MODE: SERVER_MODE = 'standalone'
     const SERVER_APP = 'worker'
     const zeroant = await loaders({
@@ -54,38 +48,32 @@ program
         })
       )
     }
-  })
-program
-  .command('start')
-  .argument('[worker]', 'Start worker')
-  .action(async function (workerName?: string) {
+}
+const split = async function () {
     const SERVER_MODE: SERVER_MODE = 'standalone'
     const SERVER_APP = 'worker'
     const zeroant = await loaders({
       SERVER_MODE,
       SERVER_APP
     })
-    if (workerName !== null && workerName !== undefined && workerName.length > 0) {
-      console.log('Start Worker', workerName)
-      const worker = zeroant.getWorkerByName(workerName)
-      if (worker === undefined || worker === null) {
-        console.log('Worker Not Found', workerName)
-        return
-      }
-      await worker.run()
-    } else {
-      console.log('Starting all Workers', zeroant.config.appName)
-      for (const name of zeroant.getWorkerNames()) {
-        console.log(name)
-        createWorker(name)
-        process.on('exit', (code: number) => {
-          workers[name].kill(code)
-        })
-        // .on('SIGINT', (code: number) => {
-        //   process.exit(code)
-        // })
-      }
+  
+    console.log('Starting all Workers', zeroant.config.appName)
+    for (const name of zeroant.getWorkerNames()) {
+      console.log(name)
+      createWorker(name)
+      process.on('exit', (code: number) => {
+        workers[name].kill(code)
+      })
+      // .on('SIGINT', (code: number) => {
+      //   process.exit(code)
+      // })
     }
-  })
+}
+export default async (workerName?: any)=>{
+  if(workerName === "prod"){
+    await split()
+  } else{
+    await combine(workerName)
+  }
+}
 
-program.parse()
