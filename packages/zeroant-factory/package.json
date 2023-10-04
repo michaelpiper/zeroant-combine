@@ -44,5 +44,6 @@
     "@types/node": "^20.8.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
-  }
+  },
+  "gitHead": "6ab97eb709cc1c7ed19433c207f558b4e582dd69"
 }

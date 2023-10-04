@@ -1,4 +1,4 @@
-import AdminJS, { AdminPages } from 'adminjs'
+import AdminJS, { type AdminPages, type CurrentAdmin /* , type PageContext */ } from 'adminjs'
 import Router from 'koa'
 import AdminJSKoa from '@adminjs/koa'
 // import lodash from 'lodash'
@@ -6,7 +6,6 @@ import * as AdminJSPrisma from '@adminjs/prisma'
 import { InternalServerError } from 'zeroant-response/serverErrors/internalServerError.serverError'
 import { ErrorCode, ErrorDescription, ZeroantEvent } from 'zeroant-common/constants'
 import { AdminConfig } from 'zeroant-common/config/admin.config'
-import { type ZeroantContext } from 'zeroant-factory/zeroant.context'
 import { RegistryRouteEntryFactory } from 'zeroant-factory/registry.factory'
 import { type KoaAuthOptions } from 'zeroant-common/constants'
 import { KoaAdapter } from '@bull-board/koa'
@@ -17,8 +16,6 @@ import { Components } from './resources/components.js'
 import { createResources } from './resources/index.js'
 import { DBPlugin } from 'zeroant-common/plugins/db.plugin'
 import { HttpServer } from 'zeroant-common/servers/http.server'
-import { type CurrentAdmin /* , type PageContext */ } from 'adminjs'
-import { type ConfigFactory } from 'zeroant-factory/config.factory'
 import session from 'koa-session'
 export default class AdminEntry extends RegistryRouteEntryFactory {
   router: Router = new Router({
@@ -52,7 +49,7 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
     const admin = new AdminJS({
       ...options,
       pages: this.pages,
-      
+
       // {
       //   // SchemaPlayground: {
       //   //   icon: 'Schema Playground',

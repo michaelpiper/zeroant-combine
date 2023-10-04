@@ -9,13 +9,14 @@ export default class IdpRouteEntry extends RegistryRouteEntryFactory {
 
   public name = 'idp'
   public options: {
-    body?: bodyParser.Options,
+    body?: bodyParser.Options
     cors?: cors.Options
   } = {
     body: {
       jsonLimit: '1mb'
     }
   }
+
   buildRoutes() {
     this.router.use(bodyParser(this.options.body))
     this.router.use(cors(this.options.cors))
