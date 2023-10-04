@@ -1,6 +1,6 @@
 {
   "name": "zeroant",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-alpha.11",
   "description": "modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant.git",
   "main": "lib/index.js",
