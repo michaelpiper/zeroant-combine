@@ -9,9 +9,14 @@ export default class ApiRouteEntry extends RegistryRouteEntryFactory {
         prefix: '/api'
     });
     name = 'api';
+    options = {
+        body: {
+            jsonLimit: '1mb'
+        }
+    };
     buildRoutes() {
-        this.router.use(bodyParser({ jsonLimit: '1mb' }));
-        this.router.use(cors());
+        this.router.use(bodyParser(this.options.body));
+        this.router.use(cors(this.options.cors));
         this.router.use(errorHandler());
         this.router.use(responseHandler());
     }

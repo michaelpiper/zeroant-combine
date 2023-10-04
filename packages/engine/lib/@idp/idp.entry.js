@@ -7,9 +7,14 @@ export default class IdpRouteEntry extends RegistryRouteEntryFactory {
         prefix: '/idp'
     });
     name = 'idp';
+    options = {
+        body: {
+            jsonLimit: '1mb'
+        }
+    };
     buildRoutes() {
-        this.router.use(bodyParser({ jsonLimit: '1mb' }));
-        this.router.use(cors());
+        this.router.use(bodyParser(this.options.body));
+        this.router.use(cors(this.options.cors));
     }
 }
 //# sourceMappingURL=idp.entry.js.map

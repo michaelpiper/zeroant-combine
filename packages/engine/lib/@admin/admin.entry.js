@@ -21,8 +21,8 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
     dynamicRoute = true;
     admin;
     serverAdapter = new KoaAdapter();
-    constructor(context) {
-        super(context);
+    pages = {};
+    buildRoutes() {
         AdminJS.registerAdapter({
             Resource: AdminJSPrisma.Resource,
             Database: AdminJSPrisma.Database
@@ -34,8 +34,6 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
         this.context.on(ZeroantEvent.BEFORE_START, () => {
             this.beforeStart();
         });
-    }
-    buildRoutes() {
         const config = this.context.config.addons.get(AdminConfig);
         const options = config.options;
         const mountPoint = '/admin';
@@ -45,7 +43,7 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
         };
         const admin = new AdminJS({
             ...options,
-            pages: {},
+            pages: this.pages,
             resources: createResources(config, db),
             rootPath: mountPoint,
             componentLoader

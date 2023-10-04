@@ -29,9 +29,6 @@ const dev = async (...args: string[]) => {
     delay: 300,
     signal: 'SIGTERM'
   })
-    .on('exit', (code) => {
-      process.exit(code)
-    })
     .on('quit', (code) => {
       process.exit(code)
     })

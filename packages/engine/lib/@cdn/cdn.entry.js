@@ -7,7 +7,7 @@ export default class CDNRouteEntry extends RegistryRouteEntryFactory {
     router = new Server({});
     name = 'cdn';
     buildRoutes() {
-        this.router.use(mount('/cdn', serve(path.join(this.context.config.appPath, 'public'))));
+        this.router.use(mount('/cdn', serve(path.join(this.context.config.absPath, 'public'))));
     }
 }
 //# sourceMappingURL=cdn.entry.js.map
