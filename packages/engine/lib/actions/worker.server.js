@@ -33,7 +33,7 @@ const combine = async function (workerName) {
         const worker = zeroant.getWorkerByName(workerName);
         if (worker === undefined || worker === null) {
             console.log('Worker Not Found', workerName);
-            return;
+            process.exit();
         }
         await worker.run();
     }

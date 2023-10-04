@@ -9,7 +9,10 @@ const dev = async (...args: string[]) => {
     script = 'npx zeroant serve'
   }
   if (availableType.includes(args.at(0) as never)) {
-    script = `npx zeroant serve ${args.slice(0,2).filter((value:any)=>typeof value === 'string').join(' ')}`
+    script = `npx zeroant serve ${args
+      .slice(0, 2)
+      .filter((value: any) => typeof value === 'string')
+      .join(' ')}`
   }
   if (script == null) {
     console.log('Unknown server type')
@@ -25,6 +28,10 @@ const dev = async (...args: string[]) => {
     ignore: ['**/test/**', '**/docs/**'],
     delay: 300,
     signal: 'SIGTERM'
+  }).on("exit",()=>{
+    process.kill(process.pid)
+  }).on("quit", ()=>{
+    process.kill(process.pid)
   })
 }
 export default dev
