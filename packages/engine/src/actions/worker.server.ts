@@ -6,10 +6,10 @@ import { type SERVER_MODE } from 'zeroant-factory/config.factory'
 import loaders from 'zeroant-loader/index'
 const workers: Record<string, any & events.EventEmitter> = {}
 const createWorker = (name: string) => {
-  workers[name] = spawn('npm', ['run', 'worker', 'start', name], {
+  workers[name] = spawn('npx', ['zeroant', 'worker', name], {
     cwd: process.cwd()
   })
-  workers[name].stdout.on('data', (data: string) => {
+  workers[name].stdout.pipe('data', (data: string) => {
     console.log(`[worker ${name} info]: ${data}`)
   })
   workers[name].stderr.on('data', (data: string) => {
@@ -41,7 +41,7 @@ const combine =  async function (workerName?: string) {
       }
       await worker.run()
     } else {
-      console.log('Starting all Workers all process on one thread', zeroant.config.appName)
+      console.log('Starting all Workers In Combine Mode', zeroant.config.appName)
       await Promise.all(
         zeroant.getWorkers().map(async (worker) => {
           await worker.run()
@@ -57,7 +57,7 @@ const split = async function () {
       SERVER_APP
     })
   
-    console.log('Starting all Workers', zeroant.config.appName)
+    console.log('Starting all Workers In Split Mode', zeroant.config.appName)
     for (const name of zeroant.getWorkerNames()) {
       console.log(name)
       createWorker(name)
@@ -70,7 +70,7 @@ const split = async function () {
     }
 }
 export default async (workerName?: any)=>{
-  if(workerName === "prod"){
+  if(workerName === "split"){
     await split()
   } else{
     await combine(workerName)
