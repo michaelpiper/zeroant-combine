@@ -28,6 +28,12 @@ const dev = async (...args) => {
         ignore: ['**/test/**', '**/docs/**'],
         delay: 300,
         signal: 'SIGTERM'
+    })
+        .on('exit', () => {
+        process.kill(process.pid);
+    })
+        .on('quit', () => {
+        process.kill(process.pid);
     });
 };
 export default dev;
