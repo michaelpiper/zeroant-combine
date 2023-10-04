@@ -10,4 +10,4 @@ const getMode = async (type: string | null | undefined) => {
     return loaders.default
   }
 }
-export default  getMode
+export default getMode

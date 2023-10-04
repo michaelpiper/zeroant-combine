@@ -25,55 +25,54 @@ const createWorker = (name: string) => {
   return workers[name]
 }
 // Worker
-const combine =  async function (workerName?: string) {
-    const SERVER_MODE: SERVER_MODE = 'standalone'
-    const SERVER_APP = 'worker'
-    const zeroant = await loaders({
-      SERVER_MODE,
-      SERVER_APP
-    })
-    if (workerName !== null && workerName !== undefined && workerName.length > 0) {
-      console.log('Start Worker', workerName)
-      const worker = zeroant.getWorkerByName(workerName)
-      if (worker === undefined || worker === null) {
-        console.log('Worker Not Found', workerName)
-        return
-      }
-      await worker.run()
-    } else {
-      console.log('Starting all Workers In Combine Mode', zeroant.config.appName)
-      await Promise.all(
-        zeroant.getWorkers().map(async (worker) => {
-          await worker.run()
-        })
-      )
+const combine = async function (workerName?: string) {
+  const SERVER_MODE: SERVER_MODE = 'standalone'
+  const SERVER_APP = 'worker'
+  const zeroant = await loaders({
+    SERVER_MODE,
+    SERVER_APP
+  })
+  if (workerName !== null && workerName !== undefined && workerName.length > 0) {
+    console.log('Start Worker', workerName)
+    const worker = zeroant.getWorkerByName(workerName)
+    if (worker === undefined || worker === null) {
+      console.log('Worker Not Found', workerName)
+      process.exit()
     }
+    await worker.run()
+  } else {
+    console.log('Starting all Workers In Combine Mode', zeroant.config.appName)
+    await Promise.all(
+      zeroant.getWorkers().map(async (worker) => {
+        await worker.run()
+      })
+    )
+  }
 }
 const split = async function () {
-    const SERVER_MODE: SERVER_MODE = 'standalone'
-    const SERVER_APP = 'worker'
-    const zeroant = await loaders({
-      SERVER_MODE,
-      SERVER_APP
+  const SERVER_MODE: SERVER_MODE = 'standalone'
+  const SERVER_APP = 'worker'
+  const zeroant = await loaders({
+    SERVER_MODE,
+    SERVER_APP
+  })
+
+  console.log('Starting all Workers In Split Mode', zeroant.config.appName)
+  for (const name of zeroant.getWorkerNames()) {
+    console.log(name)
+    createWorker(name)
+    process.on('exit', (code: number) => {
+      workers[name].kill(code)
     })
-  
-    console.log('Starting all Workers In Split Mode', zeroant.config.appName)
-    for (const name of zeroant.getWorkerNames()) {
-      console.log(name)
-      createWorker(name)
-      process.on('exit', (code: number) => {
-        workers[name].kill(code)
-      })
-      // .on('SIGINT', (code: number) => {
-      //   process.exit(code)
-      // })
-    }
+    // .on('SIGINT', (code: number) => {
+    //   process.exit(code)
+    // })
+  }
 }
-export default async (workerName?: any)=>{
-  if(workerName === "split"){
+export default async (workerName?: any) => {
+  if (workerName === 'split') {
     await split()
-  } else{
+  } else {
     await combine(workerName)
   }
 }
-

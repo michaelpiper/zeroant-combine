@@ -18,7 +18,11 @@ const createAction = (action) => async (...args) => {
 };
 program.name('zeroant').description('CLI to some ZeroAnt utilities').version('0.1.0');
 program.command('init').argument('[action]', 'Dev').action(createAction(init));
-program.command('dev').argument('[action]', 'Dev').action(createAction(dev));
-program.command('serve').argument('[action]', 'Serve').action(createAction(serve));
+program.command('dev').argument('[action]', 'Dev').argument('[options]', 'Dev Options').action(createAction(dev));
+program.command('serve').argument('[action]', 'Serve').argument('[options]', 'Serve Options').action(createAction(serve));
+program
+    .command('worker')
+    .argument('[name]', 'Worker Name')
+    .action(createAction(async (...args) => serve('worker', ...args)));
 program.parse();
 //# sourceMappingURL=cli.js.map

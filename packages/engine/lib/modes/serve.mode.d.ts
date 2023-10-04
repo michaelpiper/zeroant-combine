@@ -1,2 +1,2 @@
-declare const _default: (type: string | null | undefined) => Promise<void>;
-export default _default;
+declare const serve: (type: string | null | undefined, ...args: any[]) => Promise<void>;
+export default serve;

@@ -1,14 +1,12 @@
 #!/usr/bin/env node
-import { Command } from 'commander';
 import { spawn } from 'child_process';
 import loaders from 'zeroant-loader/index';
-const program = new Command();
 const workers = {};
 const createWorker = (name) => {
-    workers[name] = spawn('npm', ['run', 'worker', 'start', name], {
+    workers[name] = spawn('npx', ['zeroant', 'worker', name], {
         cwd: process.cwd()
     });
-    workers[name].stdout.on('data', (data) => {
+    workers[name].stdout.pipe('data', (data) => {
         console.log(`[worker ${name} info]: ${data}`);
     });
     workers[name].stderr.on('data', (data) => {
@@ -23,11 +21,7 @@ const createWorker = (name) => {
     });
     return workers[name];
 };
-program.name('worker').description('CLI to some Worker utilities').version('0.1.0');
-program
-    .command('dev')
-    .argument('[worker]', 'Start worker')
-    .action(async function (workerName) {
+const combine = async function (workerName) {
     const SERVER_MODE = 'standalone';
     const SERVER_APP = 'worker';
     const zeroant = await loaders({
@@ -44,41 +38,34 @@ program
         await worker.run();
     }
     else {
-        console.log('Starting all Workers all process on one thread', zeroant.config.appName);
+        console.log('Starting all Workers In Combine Mode', zeroant.config.appName);
         await Promise.all(zeroant.getWorkers().map(async (worker) => {
             await worker.run();
         }));
     }
-});
-program
-    .command('start')
-    .argument('[worker]', 'Start worker')
-    .action(async function (workerName) {
+};
+const split = async function () {
     const SERVER_MODE = 'standalone';
     const SERVER_APP = 'worker';
     const zeroant = await loaders({
         SERVER_MODE,
         SERVER_APP
     });
-    if (workerName !== null && workerName !== undefined && workerName.length > 0) {
-        console.log('Start Worker', workerName);
-        const worker = zeroant.getWorkerByName(workerName);
-        if (worker === undefined || worker === null) {
-            console.log('Worker Not Found', workerName);
-            return;
-        }
-        await worker.run();
+    console.log('Starting all Workers In Split Mode', zeroant.config.appName);
+    for (const name of zeroant.getWorkerNames()) {
+        console.log(name);
+        createWorker(name);
+        process.on('exit', (code) => {
+            workers[name].kill(code);
+        });
+    }
+};
+export default async (workerName) => {
+    if (workerName === 'split') {
+        await split();
     }
     else {
-        console.log('Starting all Workers', zeroant.config.appName);
-        for (const name of zeroant.getWorkerNames()) {
-            console.log(name);
-            createWorker(name);
-            process.on('exit', (code) => {
-                workers[name].kill(code);
-            });
-        }
+        await combine(workerName);
     }
-});
-program.parse();
+};
 //# sourceMappingURL=worker.server.js.map

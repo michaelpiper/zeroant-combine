@@ -1,2 +1,3 @@
 #!/usr/bin/env node
-export {};
+declare const _default: (workerName?: any) => Promise<void>;
+export default _default;
