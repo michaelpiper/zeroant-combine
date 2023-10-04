@@ -6,7 +6,7 @@ export default async (type: string | null | undefined) => {
     return loaders.default
   }
   if (availableType.includes(type as never)) {
-    const loaders = await import(`./${type as string}.server.js`)
+    const loaders = await import(`../actions/${type as string}.server.js`)
     return loaders.default
   }
 }

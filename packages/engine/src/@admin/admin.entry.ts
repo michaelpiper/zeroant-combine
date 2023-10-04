@@ -36,10 +36,10 @@ export default class AdminEntry extends RegistryRouteEntryFactory {
       Database: AdminJSPrisma.Database
     })
     this.serverAdapter.setBasePath('/admin/queue')
-    this.context.event.on(ZeroantEvent.START, () => {
+    this.context.on(ZeroantEvent.START, () => {
       this.onStart()
     })
-    this.context.event.on(ZeroantEvent.BEFORE_START, () => {
+    this.context.on(ZeroantEvent.BEFORE_START, () => {
       this.beforeStart()
     })
   }

@@ -244,12 +244,12 @@ export class SocketServer<PubSocketTopic extends string, SubSocketTopic extends 
 
   subEvents(client: WebSocket, payload: SubSocketPayload<SubSocketTopic, any>) {
     this.debug('info', 'SUB New Event', payload)
-    this.context.event.emit(ZeroantEvent.SUB_SOCKET, client, payload)
+    this.context.emit(ZeroantEvent.SUB_SOCKET, client, payload)
   }
 
   pubEvents(client: WebSocket, payload: PubSocketPayload<SubSocketTopic, any>) {
     this.debug('info', 'PUB New Event', payload)
-    this.context.event.emit(ZeroantEvent.PUB_SOCKET, client, payload)
+    this.context.emit(ZeroantEvent.PUB_SOCKET, client, payload)
   }
 
   close(): void {

@@ -71,7 +71,7 @@ export class ZeroantContext {
         });
     }
     onStart() {
-        this.event.emit(ZeroantEvent.START);
+        this.#event.emit(ZeroantEvent.START);
         for (const plugin of this.plugin.values()) {
             plugin.onStart();
         }
@@ -84,7 +84,7 @@ export class ZeroantContext {
         });
     }
     beforeStart() {
-        this.event.emit(ZeroantEvent.BEFORE_START);
+        this.#event.emit(ZeroantEvent.BEFORE_START);
         for (const plugin of this.plugin.values()) {
             plugin.beforeStart();
         }
@@ -96,7 +96,7 @@ export class ZeroantContext {
         return this.#store.get(key) !== undefined && this.#store.get(key) !== null;
     }
     close() {
-        this.event.emit(ZeroantEvent.CLOSE);
+        this.#event.emit(ZeroantEvent.CLOSE);
         for (const plugin of this.plugin.values()) {
             plugin.close();
         }
@@ -117,19 +117,24 @@ export class ZeroantContext {
         });
     }
     bootstrap(registry) {
-        if (![null, undefined].includes(this.#registry)) {
+        if (this.hasRegistry) {
             throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `${new Date().toISOString()} Registry already bootstrap for zeroant and it can't be overridden`);
         }
         this.#registry = registry;
         registry.bootstrap(this);
+        this.#event.emit(ZeroantEvent.BOOTSTRAP, this);
+    }
+    get hasRegistry() {
+        return ![null, undefined].includes(this.#registry);
     }
     get registry() {
-        if ([null, undefined].includes(this.#registry)) {
+        if (!this.hasRegistry) {
             throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `${new Date().toISOString()} Registry not register for zeroant yet, please bootstrap before using registry`);
         }
         return this.#registry;
     }
     ready() {
+        this.#event.emit(ZeroantEvent.READY, this);
         this.#registry.ready(this);
     }
     initServer(Server, registry) {
@@ -191,8 +196,32 @@ export class ZeroantContext {
     get config() {
         return this.getConfig();
     }
-    get event() {
-        return this.#event;
+    on(eventName, listener) {
+        this.#event.on(eventName, listener);
+        return this;
+    }
+    once(eventName, listener) {
+        this.#event.once(eventName, listener);
+        return this;
+    }
+    off(eventName, listener) {
+        this.#event.off(eventName, listener);
+        return this;
+    }
+    removeListener(eventName, listener) {
+        this.#event.removeListener(eventName, listener);
+        return this;
+    }
+    removeAllListeners(eventName) {
+        this.#event.removeAllListeners(eventName);
+        return this;
+    }
+    rawListeners(eventName) {
+        this.#event.rawListeners(eventName);
+        return this;
+    }
+    emit(eventName, ...args) {
+        return this.#event.emit(eventName, ...args);
     }
 }
 //# sourceMappingURL=zeroant.context.js.map

@@ -6,5 +6,7 @@ export var ZeroantEvent;
     ZeroantEvent["AFTER_START"] = "AFTER_START";
     ZeroantEvent["PUB_SOCKET"] = "PUB_SOCKET";
     ZeroantEvent["SUB_SOCKET"] = "SUB_SOCKET";
+    ZeroantEvent["BOOTSTRAP"] = "BOOTSTRAP";
+    ZeroantEvent["READY"] = "READY";
 })(ZeroantEvent || (ZeroantEvent = {}));
 //# sourceMappingURL=zeroant.enum.js.map

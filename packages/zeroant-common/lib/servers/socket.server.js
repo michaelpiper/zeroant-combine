@@ -214,11 +214,11 @@ export class SocketServer extends ServerFactory {
     }
     subEvents(client, payload) {
         this.debug('info', 'SUB New Event', payload);
-        this.context.event.emit(ZeroantEvent.SUB_SOCKET, client, payload);
+        this.context.emit(ZeroantEvent.SUB_SOCKET, client, payload);
     }
     pubEvents(client, payload) {
         this.debug('info', 'PUB New Event', payload);
-        this.context.event.emit(ZeroantEvent.PUB_SOCKET, client, payload);
+        this.context.emit(ZeroantEvent.PUB_SOCKET, client, payload);
     }
     close() {
         if (!this.enabled) {

@@ -4,5 +4,7 @@ export declare enum ZeroantEvent {
     BEFORE_START = "BEFORE_START",
     AFTER_START = "AFTER_START",
     PUB_SOCKET = "PUB_SOCKET",
-    SUB_SOCKET = "SUB_SOCKET"
+    SUB_SOCKET = "SUB_SOCKET",
+    BOOTSTRAP = "BOOTSTRAP",
+    READY = "READY"
 }

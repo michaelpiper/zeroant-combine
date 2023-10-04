@@ -88,7 +88,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   }
 
   onStart() {
-    this.event.emit(ZeroantEvent.START)
+    this.#event.emit(ZeroantEvent.START)
     for (const plugin of this.plugin.values()) {
       plugin.onStart()
     }
@@ -101,7 +101,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   }
 
   beforeStart() {
-    this.event.emit(ZeroantEvent.BEFORE_START)
+    this.#event.emit(ZeroantEvent.BEFORE_START)
     for (const plugin of this.plugin.values()) {
       plugin.beforeStart()
     }
@@ -115,7 +115,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   }
 
   close() {
-    this.event.emit(ZeroantEvent.CLOSE)
+    this.#event.emit(ZeroantEvent.CLOSE)
     for (const plugin of this.plugin.values()) {
       plugin.close()
     }
@@ -137,7 +137,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   }
 
   bootstrap(registry: RegistryFactory) {
-    if (![null, undefined].includes(this.#registry as never)) {
+    if (this.hasRegistry) {
       throw new InternalServerError(
         ErrorCode.SERVER_EXCEPTION,
         ErrorDescription.SERVER_EXCEPTION,
@@ -146,10 +146,15 @@ export class ZeroantContext<Config extends ConfigFactory> {
     }
     this.#registry = registry
     registry.bootstrap(this)
+    this.#event.emit(ZeroantEvent.BOOTSTRAP, this)
+  }
+
+  get hasRegistry() {
+    return ![null, undefined].includes(this.#registry as never)
   }
 
   get registry(): RegistryFactory {
-    if ([null, undefined].includes(this.#registry as never)) {
+    if (!this.hasRegistry) {
       throw new InternalServerError(
         ErrorCode.SERVER_EXCEPTION,
         ErrorDescription.SERVER_EXCEPTION,
@@ -160,6 +165,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   }
 
   ready() {
+    this.#event.emit(ZeroantEvent.READY, this)
     this.#registry.ready(this)
   }
 
@@ -235,7 +241,37 @@ export class ZeroantContext<Config extends ConfigFactory> {
     return this.getConfig()
   }
 
-  get event(): EventEmitter {
-    return this.#event
+  on(eventName: ZeroantEvent, listener: (...args: any[]) => void): this {
+    this.#event.on(eventName, listener)
+    return this
+  }
+
+  once(eventName: ZeroantEvent, listener: (...args: any[]) => void): this {
+    this.#event.once(eventName, listener)
+    return this
+  }
+
+  off(eventName: ZeroantEvent, listener: (...args: any[]) => void): this {
+    this.#event.off(eventName, listener)
+    return this
+  }
+
+  removeListener(eventName: ZeroantEvent, listener: (...args: any[]) => void): this {
+    this.#event.removeListener(eventName, listener)
+    return this
+  }
+
+  removeAllListeners(eventName: ZeroantEvent): this {
+    this.#event.removeAllListeners(eventName)
+    return this
+  }
+
+  rawListeners(eventName: ZeroantEvent): this {
+    this.#event.rawListeners(eventName)
+    return this
+  }
+
+  emit(eventName: ZeroantEvent, ...args: any[]): boolean {
+    return this.#event.emit(eventName, ...args)
   }
 }

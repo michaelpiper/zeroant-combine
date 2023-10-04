@@ -1,10 +1,9 @@
 /// <reference types="node" resolution-mode="require"/>
-/// <reference types="node" resolution-mode="require"/>
 import { type Server } from 'http';
+import { ZeroantEvent } from 'zeroant-constant/index';
 import { type ServerFactoryConstructor, type ServerFactory } from './server.factory.js';
 import { type ConfigFactory } from './config.factory.js';
 import { type Plugin } from './plugin.factory.js';
-import { EventEmitter } from 'events';
 import { type WorkerFactoryConstructor, type WorkerFactory } from './worker.factory.js';
 import { type AddonPlugin, type AddonPluginConstructor } from './addon.plugin.js';
 import { type Logger } from 'winston';
@@ -33,6 +32,7 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     has(key: string): boolean;
     close(): void;
     bootstrap(registry: RegistryFactory): void;
+    get hasRegistry(): boolean;
     get registry(): RegistryFactory;
     ready(): void;
     initServer(Server: ServerFactoryConstructor<ServerFactory>, registry: RegistryFactory): void;
@@ -48,5 +48,11 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     get server(): Server;
     get plugin(): Plugin;
     get config(): Config;
-    get event(): EventEmitter;
+    on(eventName: ZeroantEvent, listener: (...args: any[]) => void): this;
+    once(eventName: ZeroantEvent, listener: (...args: any[]) => void): this;
+    off(eventName: ZeroantEvent, listener: (...args: any[]) => void): this;
+    removeListener(eventName: ZeroantEvent, listener: (...args: any[]) => void): this;
+    removeAllListeners(eventName: ZeroantEvent): this;
+    rawListeners(eventName: ZeroantEvent): this;
+    emit(eventName: ZeroantEvent, ...args: any[]): boolean;
 }

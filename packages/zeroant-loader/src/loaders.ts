@@ -2,9 +2,15 @@ import { logger } from 'zeroant-logger/console'
 import { Config } from 'zeroant-config/index'
 import { Plugin } from 'zeroant-factory/plugin.factory'
 import { type CustomConfig } from 'zeroant-factory/config.factory'
-export const loaders = async (customConfig: CustomConfig = {}) => {
+import type RegistryFactory from 'zeroant-factory/registry.factory'
+export const loaders = async (customConfig: CustomConfig & { registry?: RegistryFactory } = {}) => {
   const { zeroant } = await import('./zeroant.js')
-  const config = Config.instance.append(customConfig as any)
+  const { registry: _registry, ..._customConfig } = customConfig
+
+  if (!zeroant.hasRegistry && _registry !== undefined && _registry != null) {
+    zeroant.bootstrap(_registry)
+  }
+  const config = Config.instance.append(_customConfig as any)
   await Promise.all([zeroant.initLogger(logger), zeroant.initConfig(config)])
   const registry = zeroant.registry
   for (const addon of registry.configs) {
@@ -28,6 +34,8 @@ export const loaders = async (customConfig: CustomConfig = {}) => {
     .on('SIGINT', () => {
       process.exit()
     })
-
+    .on('SIGTERM', () => {
+      process.exit()
+    })
   return zeroant
 }
