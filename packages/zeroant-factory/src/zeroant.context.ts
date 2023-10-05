@@ -10,7 +10,6 @@ import { type WorkerFactoryConstructor, type WorkerFactory } from './worker.fact
 import { type AddonPlugin, type AddonPluginConstructor } from './addon.plugin.js'
 import { type Logger } from 'winston'
 import type RegistryFactory from 'registry.factory.js'
-import _ from 'lodash'
 export class ZeroantContext<Config extends ConfigFactory> {
   static PORT = 8080
   static HOSTNAME = '127.0.0.1'
@@ -206,16 +205,16 @@ export class ZeroantContext<Config extends ConfigFactory> {
   }
 
   get<T>(name: string): T {
-    const inst =  this.#store.get(name)
+    const inst = this.#store.get(name)
     if (inst === null || inst === undefined) {
       throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `Resources ${name} Not found`)
     }
     return inst
   }
 
-  set<T>(name: string, value:T): this {
+  set<T>(name: string, value: T): this {
     if (this.has(name)) {
-      throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `Can\'t Override Resources ${name}`)
+      throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `Can't Override Resources ${name}`)
     }
     this.#store.set(name, value)
     return this
