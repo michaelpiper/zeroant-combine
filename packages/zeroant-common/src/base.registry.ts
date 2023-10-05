@@ -26,7 +26,7 @@ const makeRegistryManager = <
   registry: RegistryFactory,
   type: A
 ) => {
-  return new Manager<R[A]>(registry[type] as any as Array<R[A]>)
+  return new Manager<R[A]>(registry[type as keyof RegistryFactory] as any as Array<R[A]>)
 }
 export class BaseRegistry extends RegistryFactory {
   configs: AddonConfigFactory[] = []
