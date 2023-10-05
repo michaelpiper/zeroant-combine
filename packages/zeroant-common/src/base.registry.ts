@@ -19,14 +19,14 @@ const makeRegistryManager = <
   registry: RegistryFactory,
   type: A
 ) => {
-  const manager = {
-    add: (classType: R[A]) => {
+  class Manager {
+    add = (classType: R[A]): this => {
       const classStore = registry[type as never] as Array<R[A]>
       classStore.push(classType)
-      return manager
+      return this
     }
   }
-  return manager
+  return new Manager()
 }
 export class BaseRegistry extends RegistryFactory {
   configs: AddonConfigFactory[] = []

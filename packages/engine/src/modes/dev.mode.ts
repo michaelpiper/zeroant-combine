@@ -28,9 +28,8 @@ const dev = async (...args: string[]) => {
     ignore: ['**/test/**', '**/docs/**'],
     delay: 300,
     signal: 'SIGTERM'
+  }).on('quit', (code) => {
+    process.exit(code)
   })
-    .on('quit', (code) => {
-      process.exit(code)
-    })
 }
 export default dev
