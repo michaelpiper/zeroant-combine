@@ -1,5 +1,4 @@
 import { type Middleware, type DefaultState, type DefaultContext } from 'koa'
-
 import { type AddonConfigFactory } from 'zeroant-factory/addon.config'
 import { type AddonPluginFactory } from 'zeroant-factory/addon.plugin'
 import RegistryFactory, { type RegistryRouteEntryConstructor, type RegistryRouteEntryFactory } from 'zeroant-factory/registry.factory'
