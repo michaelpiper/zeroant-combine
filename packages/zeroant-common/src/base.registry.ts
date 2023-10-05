@@ -5,6 +5,13 @@ import { type AddonPluginFactory } from 'zeroant-factory/addon.plugin'
 import RegistryFactory, { type RegistryRouteEntryConstructor, type RegistryRouteEntryFactory } from 'zeroant-factory/registry.factory'
 import { type ServerFactoryConstructor, type ServerFactory } from 'zeroant-factory/server.factory'
 import { type WorkerFactoryConstructor, type WorkerFactory } from 'zeroant-factory/worker.factory'
+class Manager<T> {
+  constructor(public store: T[]) {}
+  add = (classType: T): this => {
+    this.store.push(classType)
+    return this
+  }
+}
 const makeRegistryManager = <
   A extends keyof R,
   R = {
@@ -19,14 +26,7 @@ const makeRegistryManager = <
   registry: RegistryFactory,
   type: A
 ) => {
-  class Manager {
-    add = (classType: R[A]): this => {
-      const classStore = registry[type as never] as Array<R[A]>
-      classStore.push(classType)
-      return this
-    }
-  }
-  return new Manager()
+  return new Manager<R[A]>((registry[type] as Array<R[A]>))
 }
 export class BaseRegistry extends RegistryFactory {
   configs: AddonConfigFactory[] = []

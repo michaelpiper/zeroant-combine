@@ -41,6 +41,8 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     getPlugins(): Plugin;
     initConfig(config: Config): Promise<void>;
     initLogger(logger: Logger): Promise<void>;
+    get<T>(name: string): T;
+    set<T>(name: string, value: T): this;
     getLogger<T extends Logger>(): T;
     getConfig(): Config;
     getPlugin<T extends AddonPlugin>(addon: AddonPluginConstructor<T>): T;

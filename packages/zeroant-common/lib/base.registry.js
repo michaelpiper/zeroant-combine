@@ -1,13 +1,16 @@
 import RegistryFactory from 'zeroant-factory/registry.factory';
-const makeRegistryManager = (registry, type) => {
-    class Manager {
-        add = (classType) => {
-            const classStore = registry[type];
-            classStore.push(classType);
-            return this;
-        };
+class Manager {
+    store;
+    constructor(store) {
+        this.store = store;
     }
-    return new Manager();
+    add = (classType) => {
+        this.store.push(classType);
+        return this;
+    };
+}
+const makeRegistryManager = (registry, type) => {
+    return new Manager(registry[type]);
 };
 export class BaseRegistry extends RegistryFactory {
     configs = [];

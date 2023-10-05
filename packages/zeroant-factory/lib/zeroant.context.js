@@ -93,7 +93,7 @@ export class ZeroantContext {
         }
     }
     has(key) {
-        return this.#store.get(key) !== undefined && this.#store.get(key) !== null;
+        return this.#store.has(key);
     }
     close() {
         this.#event.emit(ZeroantEvent.CLOSE);
@@ -166,6 +166,20 @@ export class ZeroantContext {
     }
     async initLogger(logger) {
         this.#store.set('logger', logger);
+    }
+    get(name) {
+        const inst = this.#store.get(name);
+        if (inst === null || inst === undefined) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `Resources ${name} Not found`);
+        }
+        return inst;
+    }
+    set(name, value) {
+        if (this.has(name)) {
+            throw new InternalServerError(ErrorCode.SERVER_EXCEPTION, ErrorDescription.SERVER_EXCEPTION, `Can't Override Resources ${name}`);
+        }
+        this.#store.set(name, value);
+        return this;
     }
     getLogger() {
         const logger = this.#store.get('logger');
