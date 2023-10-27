@@ -10,7 +10,7 @@ export class RedisPlugin extends AddonPlugin {
   private readonly _config
   constructor(context: ZeroantContext<ConfigFactory>) {
     super(context)
-    this._config = context.config.addons.getOrSet(RedisConfig)
+    this._config = context.config.addons.lazyGet(RedisConfig)
     this._redis = new Redis(this._config.redisUrl, this._config.ioOptions)
   }
 

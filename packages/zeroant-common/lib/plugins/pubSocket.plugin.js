@@ -17,14 +17,14 @@ export class PubSocket extends AddonPlugin {
     shutingDown = false;
     _options;
     get enabled() {
-        return this.context.config.addons.get(PubSocketConfig).usePub;
+        return this.context.config.addons.lazyGet(PubSocketConfig).usePub;
     }
     async initialize() {
         if (!this.enabled) {
             return;
         }
         this.debug('info', 'Enabled');
-        const options = this.context.config.addons.get(PubSocketConfig).options;
+        const options = this.context.config.addons.lazyGet(PubSocketConfig).options;
         this._options = options;
         const uuid = v4();
         for (const url of this._options.url) {

@@ -39,5 +39,6 @@
     "@types/uuid": "^8.3.0",
     "eslint": "^8.40.0",
     "typescript": "^5.0.4"
-  }
+  },
+  "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }

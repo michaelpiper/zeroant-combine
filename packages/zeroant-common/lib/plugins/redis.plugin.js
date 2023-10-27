@@ -6,7 +6,7 @@ export class RedisPlugin extends AddonPlugin {
     _config;
     constructor(context) {
         super(context);
-        this._config = context.config.addons.get(RedisConfig);
+        this._config = context.config.addons.getOrSet(RedisConfig);
         this._redis = new Redis(this._config.redisUrl, this._config.ioOptions);
     }
     async initialize() {

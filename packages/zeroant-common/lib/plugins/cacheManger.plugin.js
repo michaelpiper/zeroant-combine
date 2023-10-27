@@ -119,7 +119,7 @@ export class CacheManagerPlugin extends AddonPlugin {
     multiCache;
     maxTtl = TtlUtils.oneDay;
     async initialize() {
-        const redisOptions = this.context.config.addons.get(RedisConfig).options;
+        const redisOptions = this.context.config.addons.lazyGet(RedisConfig).options;
         this.redisCache = await cacheManager.caching(redisStore, {
             ...redisOptions,
             db: 1,
