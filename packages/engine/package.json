@@ -15,6 +15,11 @@
     "zeroant": "node ./lib/index.js"
   },
   "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js"
+    },
     "./*": "./lib/*.js",
     "./**/*": "./lib/**/*.js"
   },
