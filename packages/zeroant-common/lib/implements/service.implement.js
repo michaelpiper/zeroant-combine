@@ -19,7 +19,7 @@ export class ServiceImplement {
         this.pk = pk;
     }
     async getRepo() {
-        return await import('zeroant-loader/index').then(({ zeroant }) => zeroant.getPlugin(DBPlugin).repository(this.repoName));
+        return await import('zeroant-loader').then(({ zeroant }) => zeroant.getPlugin(DBPlugin).repository(this.repoName));
     }
     isNumber(value, yes, no) {
         value = Number(value);

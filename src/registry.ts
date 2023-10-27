@@ -9,7 +9,7 @@ import { PubSocket } from 'zeroant-common/plugins/pubSocket.plugin'
 import { RedisPlugin } from 'zeroant-common/plugins/redis.plugin'
 import { HttpServer } from 'zeroant-common/servers/http.server'
 import { SocketServer } from 'zeroant-common/servers/socket.server'
-import  Registry from 'zeroant/registry.js'
+import Registry from 'zeroant'
 import AdminEntry from 'zeroant/@admin/admin.entry.js'
 export const registry = new Registry()
 registry.config.add(RedisConfig).add(DBConfig).add(AdminConfig).add(PubSocketConfig).add(CDNConfig)

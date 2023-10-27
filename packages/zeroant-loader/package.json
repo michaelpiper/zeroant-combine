@@ -29,8 +29,6 @@
   "author": "Michael Piper",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^8.40.0",
-    "koa": "^2.14.2"
   },
   "peerDependencies": {
     "zeroant-config": "^1.0.0-alpha.1",
@@ -38,10 +36,8 @@
     "zeroant-logger": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "@types/koa": "^2.13.9",
-    "@types/koa-router": "^7.4.5",
+    "eslint": "^8.40.0",
     "@types/node": "^20.8.0",
-    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   },
   "gitHead": "9fd7b2a982a9a57eb1de0c59fd6721935b8e2ad0"

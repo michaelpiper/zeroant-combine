@@ -1,8 +1,7 @@
-import redis from 'redis'
 import { AddonPlugin } from 'zeroant-factory/addon.plugin'
 import { Redis, type RedisOptions } from 'ioredis'
 import { RedisConfig } from '../config/redis.config.js'
-import { type JsonValue } from 'zeroant-constant/json.type'
+import { type JsonValue } from '@prisma/client/runtime/library.js'
 import { type ZeroantContext } from 'zeroant-factory/zeroant.context'
 import { type ConfigFactory } from 'zeroant-factory/config.factory'
 
@@ -12,24 +11,17 @@ export class RedisPlugin extends AddonPlugin {
   constructor(context: ZeroantContext<ConfigFactory>) {
     super(context)
     this._config = context.config.addons.get(RedisConfig)
-    this._redis = redis.createClient({ url: this._config.redisUrl, ...this._config.options })
+    this._redis = new Redis(this._config.redisUrl, this._config.ioOptions)
   }
 
   async initialize(): Promise<void> {
     if (this._redis != null || this._redis !== undefined) {
       console.info(new Date(), '[Redis]: Already Started')
     }
-    if (!this._redis.isOpen) {
-      this._redis
-        .connect()
-        .then(() => {
-          this.debug('info', 'Connected')
-        })
-        .catch((e) => {
-          this.debug('error', e)
-        })
-      this.debug('info', 'Enabled')
-    }
+
+    // await this._redis.info().then(()=> { this.debug('info', 'Connected') })
+    //   .catch((e) => { this.debug('error', e) })
+    // this.debug('info', 'Enabled')
   }
 
   async get<T = JsonValue>(key: string): Promise<T> {
@@ -53,7 +45,15 @@ export class RedisPlugin extends AddonPlugin {
   }
 
   async set(key: string, value: JsonValue, ttl?: number): Promise<boolean> {
-    return await this._redis.set(key, JSON.stringify(value), { EX: ttl }).then((value) => {
+    if (!ttl) {
+      return await this._redis.set(key, JSON.stringify(value)).then((value) => {
+        if (value === 'OK') {
+          return true
+        }
+        return false
+      })
+    }
+    return await this._redis.set(key, JSON.stringify(value), 'PX', ttl).then((value) => {
       if (value === 'OK') {
         return true
       }
@@ -77,23 +77,15 @@ export class RedisPlugin extends AddonPlugin {
     console.info(new Date(), '[RedisPlugin]: Stopped')
   }
 
-  clone() {
-    return redis.createClient(this.options)
-  }
-
-  ioClone(): Redis {
-    return new Redis(this._config.ioRedisUrl, this.ioOptions)
+  clone(): Redis {
+    return new Redis(this._config.redisUrl, this.options)
   }
 
   get instance() {
     return this._redis
   }
 
-  get options() {
-    return this._config.options
-  }
-
-  get ioOptions(): RedisOptions {
+  get options(): RedisOptions {
     return this._config.ioOptions
   }
 }

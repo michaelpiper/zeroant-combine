@@ -1,4 +1,4 @@
-import { Config } from 'zeroant-config/index';
+import { Config } from 'zeroant-config';
 import winston from 'winston';
 export const logger = winston.createLogger({
     level: '',

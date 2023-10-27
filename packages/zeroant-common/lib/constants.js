@@ -1,2 +1,2 @@
-export * from 'zeroant-constant/index';
+export * from 'zeroant-constant';
 //# sourceMappingURL=constants.js.map

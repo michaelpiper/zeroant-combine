@@ -6,7 +6,7 @@ import { type IPaginationResult } from '../interfaces/pagination.interface.js';
 import { PubSocket } from '../plugins/pubSocket.plugin.js';
 import { type ZeroantContext } from 'zeroant-factory/zeroant.context';
 import { type PrismaClient } from '@prisma/client';
-import { type Config } from 'zeroant-config/index';
+import { type Config } from 'zeroant-config';
 export type ServiceImplementSerializer<T, R extends ModelFactory> = (entity: T) => R;
 export declare abstract class ServiceImplement<T extends keyof PrismaClient, R extends ModelFactory, Entity> {
     #private;

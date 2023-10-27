@@ -1,7 +1,7 @@
 import { createServer, type Server } from 'http'
 import { InternalServerError } from 'zeroant-response/serverErrors/internalServerError.serverError'
 import { ErrorCode, ErrorDescription } from 'zeroant-constant/response.enum'
-import { ZeroantEvent } from 'zeroant-constant/index'
+import { ZeroantEvent } from 'zeroant-constant'
 import { type ServerFactoryConstructor, type ServerFactory } from './server.factory.js'
 import { type ConfigFactory } from './config.factory.js'
 import { type Plugin } from './plugin.factory.js'

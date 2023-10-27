@@ -29,14 +29,13 @@
   "author": "Michael Piper",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^8.40.0",
     "winston": "^3.10.0"
   },
   "peerDependencies": {
     "zeroant-config": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "tsconfig-paths": "^4.2.0",
+    "eslint": "^8.40.0",
     "typescript": "^5.0.4"
   }
 }

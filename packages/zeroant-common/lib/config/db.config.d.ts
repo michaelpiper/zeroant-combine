@@ -1,4 +1,4 @@
-import { type DBClientOptions } from 'zeroant-constant/index';
+import { type DBClientOptions } from 'zeroant-constant';
 import { AddonConfig } from 'zeroant-factory/addon.config';
 export type DBOptions = DBClientOptions;
 export declare class DBConfig extends AddonConfig {

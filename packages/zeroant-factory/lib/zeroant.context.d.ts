@@ -1,6 +1,6 @@
 /// <reference types="node" resolution-mode="require"/>
 import { type Server } from 'http';
-import { ZeroantEvent } from 'zeroant-constant/index';
+import { ZeroantEvent } from 'zeroant-constant';
 import { type ServerFactoryConstructor, type ServerFactory } from './server.factory.js';
 import { type ConfigFactory } from './config.factory.js';
 import { type Plugin } from './plugin.factory.js';

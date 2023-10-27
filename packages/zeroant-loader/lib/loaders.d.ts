@@ -1,4 +1,4 @@
-import { Config } from 'zeroant-config/index';
+import { Config } from 'zeroant-config';
 import { type CustomConfig } from 'zeroant-factory/config.factory';
 import type RegistryFactory from 'zeroant-factory/registry.factory';
 export declare const loaders: (customConfig?: CustomConfig & {

@@ -12,7 +12,7 @@ import _ from 'lodash'
 import { type ZeroantContext } from 'zeroant-factory/zeroant.context'
 import { DBPlugin } from '../plugins/db.plugin.js'
 import { type PrismaClient } from '@prisma/client'
-import { type Config } from 'zeroant-config/index'
+import { type Config } from 'zeroant-config'
 
 export type ServiceImplementSerializer<T, R extends ModelFactory> = (entity: T) => R
 
@@ -28,7 +28,7 @@ export abstract class ServiceImplement<T extends keyof PrismaClient, R extends M
   ) {}
 
   async getRepo(): Promise<PrismaClient[T]> {
-    return await import('zeroant-loader/index').then(({ zeroant }) => zeroant.getPlugin(DBPlugin).repository(this.repoName))
+    return await import('zeroant-loader').then(({ zeroant }) => zeroant.getPlugin(DBPlugin).repository(this.repoName))
   }
 
   isNumber<T>(value: any, yes: T, no: T): T {

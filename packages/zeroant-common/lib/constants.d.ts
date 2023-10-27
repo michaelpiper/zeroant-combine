@@ -1,1 +1,1 @@
-export * from 'zeroant-constant/index';
+export * from 'zeroant-constant';

@@ -9,7 +9,7 @@ import { readFileSync } from 'fs';
 import commentjson from 'comment-json';
 const program = new Command();
 const createAction = (action) => async (...args) => {
-    const { zeroant } = await import('zeroant-loader/index');
+    const { zeroant } = await import('zeroant-loader');
     const tsconfigString = readFileSync(ABS_PATH + '/tsconfig.json')?.toString();
     const tsconfig = commentjson.parse(tsconfigString ?? '{}');
     const { registry } = await import(path.join(ABS_PATH, tsconfig?.compilerOptions?.outDir ?? '', '/registry.js'));

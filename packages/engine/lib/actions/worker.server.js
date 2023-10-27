@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawn } from 'child_process';
-import loaders from 'zeroant-loader/index';
+import loaders from 'zeroant-loader';
 const workers = {};
 const createWorker = (name) => {
     workers[name] = spawn('npx', ['zeroant', 'worker', name], {

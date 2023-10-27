@@ -31,19 +31,22 @@
         "baseUrl": ".",
         "outDir": "./lib",
         "rootDir": "./src",
+        "typeRoots": ["./node_modules/@types","./packages/zeroant/node_modules/@types"],
+        "types": [],
         "paths": {
-            // "zeroant-*": [
-            // //   "./packages/zeroant-*/src/**/*.ts"
-            // ]
+            "zeroant/*":["./packages/zeroant/lib/*"],
+            "zeroant-common/*": [
+              "./packages/zeroant-common"
+            ]
           }
     },
     "include": [
-        "src",
-        // "packages/**/*",
+        "./src/",
+        // "./packages/",
         ".eslintrc.cjs",
     ],
     "exclude": [
-        // "node_modules",
+        // "./packages/**/node_modules",
         // "**/*.spec.ts"
       ]
 }

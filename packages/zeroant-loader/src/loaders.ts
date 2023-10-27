@@ -1,5 +1,5 @@
 import { logger } from 'zeroant-logger/console'
-import { Config } from 'zeroant-config/index'
+import { Config } from 'zeroant-config'
 import { Plugin } from 'zeroant-factory/plugin.factory'
 import { type CustomConfig } from 'zeroant-factory/config.factory'
 import type RegistryFactory from 'zeroant-factory/registry.factory'

@@ -1,2 +1,2 @@
-import { Config } from 'zeroant-config/index';
+import { Config } from 'zeroant-config';
 export default Config;

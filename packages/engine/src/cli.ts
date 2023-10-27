@@ -13,7 +13,7 @@ const program = new Command()
 const createAction =
   (action: (...args: any[]) => any) =>
   async (...args: any[]) => {
-    const { zeroant } = await import('zeroant-loader/index')
+    const { zeroant } = await import('zeroant-loader')
     const tsconfigString = readFileSync(ABS_PATH + '/tsconfig.json')?.toString()
     const tsconfig = commentjson.parse(tsconfigString ?? '{}') as any
     const { registry } = await import(path.join(ABS_PATH, tsconfig?.compilerOptions?.outDir ?? '', '/registry.js'))

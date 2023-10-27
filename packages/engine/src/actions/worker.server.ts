@@ -3,7 +3,7 @@
 import { spawn } from 'child_process'
 import type * as events from 'events'
 import { type SERVER_MODE } from 'zeroant-factory/config.factory'
-import loaders from 'zeroant-loader/index'
+import loaders from 'zeroant-loader'
 const workers: Record<string, any & events.EventEmitter> = {}
 const createWorker = (name: string) => {
   workers[name] = spawn('npx', ['zeroant', 'worker', name], {

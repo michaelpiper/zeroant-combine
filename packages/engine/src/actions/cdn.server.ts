@@ -1,4 +1,4 @@
-import loaders from 'zeroant-loader/index'
+import loaders from 'zeroant-loader'
 export default async () => {
   const SERVER_MODE = 'standalone'
   const SERVER_APP = 'cdn'

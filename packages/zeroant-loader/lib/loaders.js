@@ -1,5 +1,5 @@
 import { logger } from 'zeroant-logger/console';
-import { Config } from 'zeroant-config/index';
+import { Config } from 'zeroant-config';
 import { Plugin } from 'zeroant-factory/plugin.factory';
 export const loaders = async (customConfig = {}) => {
     const { zeroant } = await import('./zeroant.js');
