@@ -1,6 +1,6 @@
 {
   "name": "zeroant-loader",
-  "version": "1.0.0-alpha.18",
+  "version": "1.0.0-alpha.19",
   "description": "loader modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-loader.git",
   "main": "lib/index.js",
@@ -28,16 +28,14 @@
   ],
   "author": "Michael Piper",
   "license": "ISC",
-  "dependencies": {
-  },
   "peerDependencies": {
     "zeroant-config": "^1.0.0-alpha.1",
     "zeroant-factory": "^1.0.0-alpha.0",
     "zeroant-logger": "^1.0.0-alpha.1"
   },
   "devDependencies": {
-    "eslint": "^8.40.0",
     "@types/node": "^20.8.0",
+    "eslint": "^8.40.0",
     "typescript": "^5.0.4"
   },
   "gitHead": "9fd7b2a982a9a57eb1de0c59fd6721935b8e2ad0"

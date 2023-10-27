@@ -1,6 +1,6 @@
 {
   "name": "zeroant-constant",
-  "version": "1.0.0-alpha.18",
+  "version": "1.0.0-alpha.19",
   "description": "constant modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-constant.git",
   "main": "lib/index.js",
@@ -33,10 +33,10 @@
     "koa": "^2.14.2"
   },
   "devDependencies": {
-    "eslint": "^8.40.0",
     "@types/koa": "^2.13.9",
     "@types/koa-session": "^6.4.0",
     "@types/node": "^20.8.0",
+    "eslint": "^8.40.0",
     "typescript": "^5.0.4"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "zeroant-factory",
-  "version": "1.0.0-alpha.18",
+  "version": "1.0.0-alpha.19",
   "description": "Factory modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-factory.git",
   "main": "lib/index.js",
@@ -31,7 +31,6 @@
   "dependencies": {
     "@faker-js/faker": "^8.1.0",
     "bull": "^4.10.4",
-   
     "koa-router": "^12.0.0",
     "winston": "^3.8.2"
   },
@@ -41,10 +40,10 @@
     "zeroant-response": "^1.0.0-alpha.2"
   },
   "devDependencies": {
-    "eslint": "^8.40.0",
     "@types/koa": "^2.13.9",
     "@types/koa-router": "^7.4.4",
     "@types/node": "^20.8.0",
+    "eslint": "^8.40.0",
     "typescript": "^5.0.4"
   },
   "gitHead": "328dda5e11a02b5b5385e04cfdfde6712dab41cd"
