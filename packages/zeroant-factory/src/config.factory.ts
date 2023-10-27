@@ -119,6 +119,14 @@ class ConfigAddons<T extends ConfigFactory> {
     )
   }
 
+  lazyGet<T extends AddonConfig<ConfigFactory>>(Type: AddonConfigConstructor<T>): T {
+    try {
+      return this.get<T>(Type)
+    } catch (error) {
+      return this.set(Type).get<T>(Type)
+    }
+  }
+
   set(Addon: AddonConfigConstructor<AddonConfig<ConfigFactory>>): this {
     this._addons.add(new Addon(this.config))
     return this

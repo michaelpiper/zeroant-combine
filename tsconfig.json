@@ -25,13 +25,13 @@
         ],
         // enables --noImplicitAny, --noImplicitThis, --alwaysStrict, --strictBindCallApply, --strictNullChecks, --strictFunctionTypes and --strictPropertyInitialization.
         "strict": true,
-        "strictPropertyInitialization": false,
+        // "strictPropertyInitialization": false,
         // generate files to revert combined/minified file back to original states
         "sourceMap": true,
         "baseUrl": ".",
         "outDir": "./lib",
-        "rootDir": "./src",
-        "typeRoots": ["./node_modules/@types","./packages/zeroant/node_modules/@types"],
+        "rootDir": ".",
+        "typeRoots": ["./node_modules/@types", "./packages/*/node_modules/@types"],
         "types": [],
         "paths": {
             "zeroant/*":["./packages/zeroant/lib/*"],
@@ -42,7 +42,8 @@
     },
     "include": [
         "./src/",
-        // "./packages/",
+        "./packages/",
+        "./examples/",
         ".eslintrc.cjs",
     ],
     "exclude": [

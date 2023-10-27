@@ -10,7 +10,7 @@ export class RedisPlugin extends AddonPlugin {
   private readonly _config
   constructor(context: ZeroantContext<ConfigFactory>) {
     super(context)
-    this._config = context.config.addons.get(RedisConfig)
+    this._config = context.config.addons.getOrSet(RedisConfig)
     this._redis = new Redis(this._config.redisUrl, this._config.ioOptions)
   }
 
@@ -45,7 +45,7 @@ export class RedisPlugin extends AddonPlugin {
   }
 
   async set(key: string, value: JsonValue, ttl?: number): Promise<boolean> {
-    if (!ttl) {
+    if (ttl == null && ttl !== undefined) {
       return await this._redis.set(key, JSON.stringify(value)).then((value) => {
         if (value === 'OK') {
           return true
@@ -53,7 +53,7 @@ export class RedisPlugin extends AddonPlugin {
         return false
       })
     }
-    return await this._redis.set(key, JSON.stringify(value), 'PX', ttl).then((value) => {
+    return await this._redis.set(key, JSON.stringify(value), 'PX', ttl!).then((value) => {
       if (value === 'OK') {
         return true
       }

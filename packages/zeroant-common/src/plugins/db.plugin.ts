@@ -22,7 +22,7 @@ export class DBPlugin extends AddonPlugin {
   }
 
   clone() {
-    const options = this.context.config.addons.get(DBConfig).options
+    const options = this.context.config.addons.getOrSet(DBConfig).options
     const dataSource = new PrismaClient(options)
     return dataSource
   }

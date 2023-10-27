@@ -27,7 +27,7 @@ export class PubSocket<PubSocketTopic extends string> extends AddonPlugin {
   }
 
   get enabled() {
-    return this.context.config.addons.get(PubSocketConfig).usePub
+    return this.context.config.addons.lazyGet(PubSocketConfig).usePub
   }
 
   async initialize() {
@@ -35,7 +35,7 @@ export class PubSocket<PubSocketTopic extends string> extends AddonPlugin {
       return
     }
     this.debug('info', 'Enabled')
-    const options = this.context.config.addons.get(PubSocketConfig).options
+    const options = this.context.config.addons.lazyGet(PubSocketConfig).options
     this._options = options
 
     const uuid = v4()

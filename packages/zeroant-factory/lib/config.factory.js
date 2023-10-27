@@ -93,6 +93,14 @@ class ConfigAddons {
         }
         throw new InternalServerError(ErrorCode.UNIMPLEMENTED_EXCEPTION, ErrorDescription.UNIMPLEMENTED_EXCEPTION, `${Type.name} you trying to get is not implemented`);
     }
+    lazyGet(Type) {
+        try {
+            return this.get(Type);
+        }
+        catch (error) {
+            return this.set(Type).get(Type);
+        }
+    }
     set(Addon) {
         this._addons.add(new Addon(this.config));
         return this;

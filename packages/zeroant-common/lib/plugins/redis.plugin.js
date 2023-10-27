@@ -1,4 +1,3 @@
-import redis from 'redis';
 import { AddonPlugin } from 'zeroant-factory/addon.plugin';
 import { Redis } from 'ioredis';
 import { RedisConfig } from '../config/redis.config.js';
@@ -8,22 +7,11 @@ export class RedisPlugin extends AddonPlugin {
     constructor(context) {
         super(context);
         this._config = context.config.addons.get(RedisConfig);
-        this._redis = redis.createClient({ url: this._config.redisUrl, ...this._config.options });
+        this._redis = new Redis(this._config.redisUrl, this._config.ioOptions);
     }
     async initialize() {
         if (this._redis != null || this._redis !== undefined) {
             console.info(new Date(), '[Redis]: Already Started');
-        }
-        if (!this._redis.isOpen) {
-            this._redis
-                .connect()
-                .then(() => {
-                this.debug('info', 'Connected');
-            })
-                .catch((e) => {
-                this.debug('error', e);
-            });
-            this.debug('info', 'Enabled');
         }
     }
     async get(key) {
@@ -46,7 +34,15 @@ export class RedisPlugin extends AddonPlugin {
         });
     }
     async set(key, value, ttl) {
-        return await this._redis.set(key, JSON.stringify(value), { EX: ttl }).then((value) => {
+        if (ttl == null && ttl !== undefined) {
+            return await this._redis.set(key, JSON.stringify(value)).then((value) => {
+                if (value === 'OK') {
+                    return true;
+                }
+                return false;
+            });
+        }
+        return await this._redis.set(key, JSON.stringify(value), 'PX', ttl).then((value) => {
             if (value === 'OK') {
                 return true;
             }
@@ -68,18 +64,12 @@ export class RedisPlugin extends AddonPlugin {
         console.info(new Date(), '[RedisPlugin]: Stopped');
     }
     clone() {
-        return redis.createClient(this.options);
-    }
-    ioClone() {
-        return new Redis(this._config.ioRedisUrl, this.ioOptions);
+        return new Redis(this._config.redisUrl, this.options);
     }
     get instance() {
         return this._redis;
     }
     get options() {
-        return this._config.options;
-    }
-    get ioOptions() {
         return this._config.ioOptions;
     }
 }

@@ -44,6 +44,7 @@ declare class ConfigAddons<T extends ConfigFactory> {
     _addons: Set<unknown>;
     constructor(config: T);
     get<T extends AddonConfig<ConfigFactory>>(Type: AddonConfigConstructor<T>): T;
+    lazyGet<T extends AddonConfig<ConfigFactory>>(Type: AddonConfigConstructor<T>): T;
     set(Addon: AddonConfigConstructor<AddonConfig<ConfigFactory>>): this;
 }
 export {};
