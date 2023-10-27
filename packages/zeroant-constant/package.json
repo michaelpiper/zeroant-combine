@@ -1,6 +1,6 @@
 {
   "name": "zeroant-constant",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.18",
   "description": "constant modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-constant.git",
   "main": "lib/index.js",
