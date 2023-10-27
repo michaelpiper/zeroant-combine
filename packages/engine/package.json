@@ -1,6 +1,6 @@
 {
   "name": "zeroant",
-  "version": "1.0.0-alpha.19",
+  "version": "1.0.0-alpha.20",
   "description": "modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant.git",
   "main": "lib/index.js",
@@ -60,14 +60,14 @@
     "koa-static": "^4.0.2",
     "lodash": "^4.17.21",
     "react-json-editor-ajrm": "^2.5.14",
-    "zeroant-common": "^1.0.0-alpha.19",
-    "zeroant-config": "^1.0.0-alpha.19",
-    "zeroant-constant": "^1.0.0-alpha.19",
-    "zeroant-factory": "^1.0.0-alpha.19",
-    "zeroant-loader": "^1.0.0-alpha.19",
-    "zeroant-logger": "^1.0.0-alpha.19",
-    "zeroant-response": "^1.0.0-alpha.19",
-    "zeroant-util": "^1.0.0-alpha.19"
+    "zeroant-common": "^1.0.0-alpha.20",
+    "zeroant-config": "^1.0.0-alpha.20",
+    "zeroant-constant": "^1.0.0-alpha.20",
+    "zeroant-factory": "^1.0.0-alpha.20",
+    "zeroant-loader": "^1.0.0-alpha.20",
+    "zeroant-logger": "^1.0.0-alpha.20",
+    "zeroant-response": "^1.0.0-alpha.20",
+    "zeroant-util": "^1.0.0-alpha.20"
   },
   "peerDependencies": {
     "@prisma/client": "^5.3.0",
