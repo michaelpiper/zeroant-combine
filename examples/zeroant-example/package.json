@@ -1,0 +1,42 @@
+{
+  "name": "zeroant-example",
+  "version": "1.0.0-alpha.18",
+  "description": "test modules for zeroant",
+  "repository": "git@github.com:michaelpiper/zeroant.git",
+  "main": "lib/index.js",
+  "type": "module",
+  "private":true,
+  "scripts": {
+    "lint": "eslint ./src/* --fix",
+    "build": "rm -rf ./lib && tsc",
+    "dev": "npx zeroant -- dev"
+  },
+  "keywords": [
+    "koa",
+    "ts",
+    "KISS",
+    "SOLID",
+    "DRY"
+  ],
+  "author": "Michael Piper",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.3.0",
+    "prisma": "^5.3.0",
+    "zeroant": "^1.0.0-alpha.18"
+  },
+  "devDependencies": {
+    "eslint": "^8.40.0",
+    "nodemon": "^3.0.1",
+    "@types/flat": "^5.0.2",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-morgan": "^1.0.5",
+    "@types/koa-mount": "^4.0.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-session": "^6.4.0",
+    "@types/koa-static": "^4.0.2",
+    "@types/koa__cors": "^4.0.0",
+    "typescript": "^5.0.4"
+  },
+  "gitHead": "328dda5e11a02b5b5385e04cfdfde6712dab41cd"
+}
