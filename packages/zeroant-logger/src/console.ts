@@ -1,4 +1,4 @@
-import { Config, AddonConfig, type ConfigFactory } from 'zeroant-confiG'
+import { Config, AddonConfig, type ConfigFactory } from 'zeroant-config'
 import winston from 'winston'
 import type * as Transport from 'winston-transport'
 class LoggerConfig extends AddonConfig<ConfigFactory> {
