@@ -1,10 +1,11 @@
 import { RedisConfig } from '../config/redis.config.js';
 import { AddonPlugin } from 'zeroant-factory/addon.plugin';
 import cacheManager from 'cache-manager';
-import { redisStore } from 'cache-manager-redis-store';
 import { TtlUtils } from 'zeroant-util/ttl.util';
 import { BadRequest } from 'zeroant-response/clientErrors/badRequest.clientError';
 import { ErrorCode, ErrorDescription } from '../constants.js';
+import { redisStore } from './redis.store.js';
+import { RedisPlugin } from './redis.plugin.js';
 export class CacheError extends BadRequest {
     constructor(message) {
         super(ErrorCode.CACHE_EXCEPTION, ErrorDescription.CACHE_EXCEPTION, message);
@@ -119,13 +120,20 @@ export class CacheManagerPlugin extends AddonPlugin {
     multiCache;
     maxTtl = TtlUtils.oneDay;
     async initialize() {
-        const redisOptions = this.context.config.addons.lazyGet(RedisConfig).options;
-        this.redisCache = await cacheManager.caching(redisStore, {
-            ...redisOptions,
-            db: 1,
-            ttlAutopurge: true,
-            ttl: this.maxTtl
-        });
+        const config = this.context.config.addons.lazyGet(RedisConfig);
+        try {
+            const redis = this.context.plugin.get(RedisPlugin).instance;
+            this.redisCache = await cacheManager.caching(redisStore, {
+                redis,
+                ttl: this.maxTtl
+            });
+        }
+        catch (error) {
+            this.redisCache = await cacheManager.caching(redisStore, {
+                ...config.options,
+                ttl: this.maxTtl
+            });
+        }
         this.memoryCache = await cacheManager.caching('memory', { max: 100, ttlAutopurge: true, ttl: this.maxTtl });
         this.multiCache = cacheManager.multiCaching([this.memoryCache, this.redisCache]);
     }
@@ -162,7 +170,9 @@ export class CacheManagerPlugin extends AddonPlugin {
     async set(key, value, ttl) {
         const expiry = CacheData.createTimestamp();
         const jsonString = JSON.stringify(new CacheData(value, expiry));
-        void this.multiCache.set(key, jsonString).catch((e) => {
+        await this.multiCache
+            .set(key, jsonString, ttl === 0 || (typeof ttl === 'number' && ttl > this.maxTtl) ? this.maxTtl : ttl)
+            .catch((e) => {
             this.debug('error', 'multiCache.set', e);
         });
     }

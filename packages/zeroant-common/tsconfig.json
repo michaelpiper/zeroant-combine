@@ -11,6 +11,7 @@
         "allowJs": true,
         "incremental": true,
         "skipLibCheck": true,
+        "strictNullChecks":true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
         // ECMAScript target version:
@@ -44,7 +45,10 @@
         // "types": [ "typings/index.d.ts"],
     },
     "include": [
-        "src/**/*"   ],
+        "src",
+        "typings",
+        "workers"
+    ],
     // exclude npm modules during compilations
     "exclude": [
         "node_modules"

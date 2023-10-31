@@ -1,6 +1,8 @@
 import dotenv from 'dotenv'
 import { join, resolve } from 'path'
 import { ABS_PATH, ConfigFactory } from 'zeroant-factory/config.factory'
+export { ABS_PATH, ConfigFactory } from 'zeroant-factory/config.factory'
+export { AddonConfig, type AddonConfigConstructor, type AddonConfigFactory } from 'zeroant-factory/addon.config'
 const ENV_FILE_PATH = resolve(join(ABS_PATH, '.env'))
 const isEnvFound = dotenv.config({ path: ENV_FILE_PATH })
 if (isEnvFound.error != null) {

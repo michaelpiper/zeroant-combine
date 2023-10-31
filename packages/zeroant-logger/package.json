@@ -32,11 +32,12 @@
     "winston": "^3.10.0"
   },
   "peerDependencies": {
-    "zeroant-config": "^1.0.0-alpha.1"
+    "zeroant-config": "^1.0.0-alpha.20"
   },
   "devDependencies": {
     "eslint": "^8.40.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "zeroant-config": "^1.0.0-alpha.20"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }

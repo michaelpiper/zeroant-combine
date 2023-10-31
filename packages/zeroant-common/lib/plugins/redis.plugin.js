@@ -6,13 +6,23 @@ export class RedisPlugin extends AddonPlugin {
     _config;
     constructor(context) {
         super(context);
-        this._config = context.config.addons.getOrSet(RedisConfig);
-        this._redis = new Redis(this._config.redisUrl, this._config.ioOptions);
+        this._config = context.config.addons.get(RedisConfig);
+        this._redis = new Redis(this._config.options);
     }
     async initialize() {
-        if (this._redis != null || this._redis !== undefined) {
+        if (this._redis != null && this._redis !== undefined && ['connect', 'ready'].includes(this._redis.status)) {
             console.info(new Date(), '[Redis]: Already Started');
+            return;
         }
+        this.debug('info', 'Enabled');
+        await this._redis
+            .info()
+            .then(() => {
+            this.debug('info', this._redis.status);
+        })
+            .catch((e) => {
+            this.debug('error', e);
+        });
     }
     async get(key) {
         return await this._redis.get(key).then((value) => {
@@ -34,7 +44,7 @@ export class RedisPlugin extends AddonPlugin {
         });
     }
     async set(key, value, ttl) {
-        if (ttl == null && ttl !== undefined) {
+        if (ttl === undefined) {
             return await this._redis.set(key, JSON.stringify(value)).then((value) => {
                 if (value === 'OK') {
                     return true;
@@ -42,7 +52,7 @@ export class RedisPlugin extends AddonPlugin {
                 return false;
             });
         }
-        return await this._redis.set(key, JSON.stringify(value), 'PX', ttl).then((value) => {
+        return await this._redis.set(key, JSON.stringify(value), 'EX', ttl).then((value) => {
             if (value === 'OK') {
                 return true;
             }
@@ -64,13 +74,13 @@ export class RedisPlugin extends AddonPlugin {
         console.info(new Date(), '[RedisPlugin]: Stopped');
     }
     clone() {
-        return new Redis(this._config.redisUrl, this.options);
+        return new Redis(this.options);
     }
     get instance() {
         return this._redis;
     }
     get options() {
-        return this._config.ioOptions;
+        return this._config.options;
     }
 }
 //# sourceMappingURL=redis.plugin.js.map

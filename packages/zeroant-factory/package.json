@@ -44,7 +44,9 @@
     "@types/koa-router": "^7.4.4",
     "@types/node": "^20.8.0",
     "eslint": "^8.40.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "zeroant-constant": "^1.0.0-alpha.2",
+    "zeroant-response": "^1.0.0-alpha.2"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }

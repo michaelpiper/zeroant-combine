@@ -38,7 +38,8 @@
     "@types/dotenv": "^8.2.0",
     "@types/node": "^20.8.0",
     "eslint": "^8.40.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "zeroant-factory": "^1.0.0-alpha.0"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }

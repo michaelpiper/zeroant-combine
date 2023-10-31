@@ -121,11 +121,6 @@ export abstract class WorkerFactory<T, F extends string> {
     const wrapper = this._wrapper(async (job: Queue.Job, done: Queue.DoneCallback, log: (row: string) => Promise<any>) => {
       await this.processor(job, done, log)
     })
-    // const redisOpts = this.context.getPlugin(RedisPlugin).ioOptions
-    // const queue = new Queue(this.name, {
-    //   redis: redisOpts,
-    //   defaultJobOptions: this.options ?? {}
-    // })
     await Promise.all([
       ...Array.from(this.#processors.entries()).map(async ([name, processor]) => {
         console.log(`${this.name} ${name} worker started successfully ${new Date().toLocaleString()}`)

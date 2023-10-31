@@ -36,7 +36,7 @@
         "paths": {
             "zeroant/*":["./packages/zeroant/lib/*"],
             "zeroant-common/*": [
-              "./packages/zeroant-common"
+              "./packages/zeroant-common/*"
             ]
           }
     },

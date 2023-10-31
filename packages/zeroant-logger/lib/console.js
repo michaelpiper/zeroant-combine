@@ -1,5 +1,15 @@
-import { Config } from 'zeroant-config';
+import { Config, AddonConfig } from 'zeroant-confiG';
 import winston from 'winston';
+class LoggerConfig extends AddonConfig {
+    get transports() {
+        const transports = [];
+        if (this.config.get('LOG_TO_CONSOLE', 'true') === 'true') {
+            transports.push(new winston.transports.Console({ format: winston.format.prettyPrint() }));
+        }
+        return transports;
+    }
+}
+const config = Config.instance.addons.lazyGet(LoggerConfig);
 export const logger = winston.createLogger({
     level: '',
     format: winston.format.json(),
@@ -10,10 +20,6 @@ export const logger = winston.createLogger({
             }
         };
     },
-    transports: [
-        new winston.transports.Console({ format: winston.format.prettyPrint() }),
-        new winston.transports.File({ filename: 'error.log', level: 'error' }),
-        new winston.transports.File({ filename: 'combined.log' })
-    ]
+    transports: config.transports
 });
 //# sourceMappingURL=console.js.map

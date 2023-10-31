@@ -1,4 +1,3 @@
-import { type RedisClientOptions } from 'redis'
 import { AddonConfig } from 'zeroant-factory/addon.config'
 import { type RedisOptions as IORedisOptions } from 'ioredis'
 
@@ -7,17 +6,9 @@ export class RedisConfig extends AddonConfig {
     return this.config.get<string>('REDIS_URI')
   }
 
-  get ioRedisUrl() {
-    return this.config.get<string>('REDIS_URI')
-  }
-
-  get options(): RedisClientOptions {
+  get options(): IORedisOptions {
     return {
-      url: this.redisUrl
+      path: this.redisUrl
     }
-  }
-
-  get ioOptions(): IORedisOptions {
-    return {}
   }
 }

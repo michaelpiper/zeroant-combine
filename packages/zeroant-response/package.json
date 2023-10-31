@@ -40,7 +40,8 @@
     "@types/koa": "^2.13.9",
     "@types/lodash": "^4.14.199",
     "eslint": "^8.40.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "zeroant-constant": "^1.0.0-alpha.3"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }

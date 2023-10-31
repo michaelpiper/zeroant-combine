@@ -1,5 +1,5 @@
 import { AddonPlugin } from 'zeroant-factory/addon.plugin'
-import { Redis, type RedisOptions } from 'ioredis'
+import { Redis } from 'ioredis'
 import { RedisConfig } from '../config/redis.config.js'
 import { type JsonValue } from '@prisma/client/runtime/library.js'
 import { type ZeroantContext } from 'zeroant-factory/zeroant.context'
@@ -10,18 +10,24 @@ export class RedisPlugin extends AddonPlugin {
   private readonly _config
   constructor(context: ZeroantContext<ConfigFactory>) {
     super(context)
-    this._config = context.config.addons.lazyGet(RedisConfig)
-    this._redis = new Redis(this._config.redisUrl, this._config.ioOptions)
+    this._config = context.config.addons.get(RedisConfig)
+    this._redis = new Redis(this._config.options)
   }
 
   async initialize(): Promise<void> {
-    if (this._redis != null || this._redis !== undefined) {
+    if (this._redis != null && this._redis !== undefined && ['connect', 'ready'].includes(this._redis.status)) {
       console.info(new Date(), '[Redis]: Already Started')
+      return
     }
-
-    // await this._redis.info().then(()=> { this.debug('info', 'Connected') })
-    //   .catch((e) => { this.debug('error', e) })
-    // this.debug('info', 'Enabled')
+    this.debug('info', 'Enabled')
+    await this._redis
+      .info()
+      .then(() => {
+        this.debug('info', this._redis.status)
+      })
+      .catch((e) => {
+        this.debug('error', e)
+      })
   }
 
   async get<T = JsonValue>(key: string): Promise<T> {
@@ -44,8 +50,8 @@ export class RedisPlugin extends AddonPlugin {
     })
   }
 
-  async set(key: string, value: JsonValue, ttl?: number): Promise<boolean> {
-    if (ttl == null && ttl !== undefined) {
+  async set(key: string, value: JsonValue, ttl?: number | string): Promise<boolean> {
+    if (ttl === undefined) {
       return await this._redis.set(key, JSON.stringify(value)).then((value) => {
         if (value === 'OK') {
           return true
@@ -53,7 +59,7 @@ export class RedisPlugin extends AddonPlugin {
         return false
       })
     }
-    return await this._redis.set(key, JSON.stringify(value), 'PX', ttl!).then((value) => {
+    return await this._redis.set(key, JSON.stringify(value), 'EX', ttl).then((value) => {
       if (value === 'OK') {
         return true
       }
@@ -77,15 +83,15 @@ export class RedisPlugin extends AddonPlugin {
     console.info(new Date(), '[RedisPlugin]: Stopped')
   }
 
-  clone(): Redis {
-    return new Redis(this._config.redisUrl, this.options)
+  clone() {
+    return new Redis(this.options)
   }
 
   get instance() {
     return this._redis
   }
 
-  get options(): RedisOptions {
-    return this._config.ioOptions
+  get options() {
+    return this._config.options
   }
 }
