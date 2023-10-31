@@ -4,9 +4,7 @@ export class RedisConfig extends AddonConfig {
         return this.config.get('REDIS_URI');
     }
     get options() {
-        return {
-            path: this.redisUrl
-        };
+        return {};
     }
 }
 //# sourceMappingURL=redis.config.js.map

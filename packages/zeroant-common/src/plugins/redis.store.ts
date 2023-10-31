@@ -105,7 +105,9 @@ export async function redisStore(
       ? options.redis
       : 'clusterConfig' in options!
       ? new Redis.Cluster(options.clusterConfig.nodes, options.clusterConfig.options)
-      : new Redis.Redis(options!.url!, options!)
+      : options!.url != null
+      ? new Redis.Redis(options!.url, options!)
+      : new Redis.Redis(options!)
 
   return redisInsStore(redisCache, options)
 }
