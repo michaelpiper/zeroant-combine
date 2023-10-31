@@ -31,8 +31,8 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     onStart(): void;
     beforeStart(): void;
     has(key: string): boolean;
-    safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): void;
-    close(): void;
+    safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): Promise<void>;
+    close(): Promise<void>;
     bootstrap(registry: RegistryFactory): void;
     get hasRegistry(): boolean;
     get registry(): RegistryFactory;

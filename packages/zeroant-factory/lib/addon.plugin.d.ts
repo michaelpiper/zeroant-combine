@@ -9,5 +9,5 @@ export declare abstract class AddonPlugin {
     initialize(): Promise<void>;
     onStart(): void;
     beforeStart(): void;
-    close(): void;
+    close(): Promise<void> | void;
 }

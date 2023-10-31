@@ -14,5 +14,5 @@ export declare abstract class ServerFactory {
     initialize(registry: RegistryFactory): void;
     beforeStart(): void;
     callback(): (req: IncomingMessage | Http2ServerRequest, res: ServerResponse | Http2ServerResponse) => Promise<any>;
-    close(): void;
+    close(): Promise<void> | void;
 }

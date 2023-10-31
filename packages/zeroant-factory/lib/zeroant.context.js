@@ -95,31 +95,42 @@ export class ZeroantContext {
     has(key) {
         return this.#store.has(key);
     }
-    safeExit(code, signal) {
+    async safeExit(code, signal) {
         if (signal !== undefined)
             console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`);
-        this.close();
+        await this.close();
         process.exit(code);
     }
-    close() {
+    async close() {
         this.#event.emit(ZeroantEvent.CLOSE);
+        const wait = [];
         for (const plugin of this.plugin.values()) {
-            plugin.close();
+            wait.push(Promise.resolve().then(async () => {
+                await plugin.close();
+            }));
         }
         for (const server of this._servers) {
-            server.close();
+            wait.push(Promise.resolve().then(async () => {
+                await server.close();
+            }));
         }
         if (!this._server) {
             return;
         }
-        ;
+        wait.push(new Promise((resolve) => {
+            if (!this._server) {
+                resolve();
+                return;
+            }
+            this._server.close((err) => {
+                if (err != null) {
+                    console.trace(err);
+                }
+                resolve();
+            });
+        }));
         this.config.logging('info', () => {
             console.info(new Date(), '[ZeroantContext]: Stopped');
-        });
-        this._server.close((err) => {
-            if (err != null) {
-                throw Error();
-            }
         });
     }
     bootstrap(registry) {
