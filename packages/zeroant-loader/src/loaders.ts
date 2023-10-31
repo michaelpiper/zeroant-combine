@@ -38,7 +38,7 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
    */
 
   process.on('beforeExit', () => {
-    zeroant.safeExit(0, 'beforeExit' as any)
+    zeroant.safeExit(0, 'beforeExit')
   }) // catches ctrl+c event
   process
     .on('SIGINT', () => {
@@ -58,7 +58,7 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
     })
     .on('uncaughtException', (err) => {
       console.trace(err)
-      zeroant.safeExit(0, 'uncaughtException' as any)
+      zeroant.safeExit(1, 'uncaughtException')
     })
   return zeroant
 }

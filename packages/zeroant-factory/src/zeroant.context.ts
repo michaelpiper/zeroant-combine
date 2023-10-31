@@ -113,8 +113,8 @@ export class ZeroantContext<Config extends ConfigFactory> {
     return this.#store.has(key)
   }
 
-  safeExit(code?: number, signal?: NodeJS.Signals): void {
-    if (signal !== undefined) console.info(`Received ${signal}.`)
+  safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): void {
+    if (signal !== undefined) console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`)
     this.close()
     process.exit(code)
   }

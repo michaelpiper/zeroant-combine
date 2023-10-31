@@ -1,4 +1,4 @@
-import { Config, AddonConfig } from 'zeroant-confiG';
+import { Config, AddonConfig } from 'zeroant-config';
 import winston from 'winston';
 class LoggerConfig extends AddonConfig {
     get transports() {
