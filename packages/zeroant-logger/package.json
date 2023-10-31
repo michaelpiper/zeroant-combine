@@ -1,6 +1,6 @@
 {
   "name": "zeroant-logger",
-  "version": "1.0.0-alpha.27",
+  "version": "1.0.0-alpha.28",
   "description": "logger modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-logger.git",
   "main": "lib/index.js",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "eslint": "^8.40.0",
     "typescript": "^5.0.4",
-    "zeroant-config": "^1.0.0-alpha.25"
+    "zeroant-config": "^1.0.0-alpha.28"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }
