@@ -1,6 +1,6 @@
 {
   "name": "zeroant-factory",
-  "version": "1.0.0-alpha.20",
+  "version": "1.0.0-alpha.21",
   "description": "Factory modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-factory.git",
   "main": "lib/index.js",
@@ -46,7 +46,7 @@
     "eslint": "^8.40.0",
     "typescript": "^5.0.4",
     "zeroant-constant": "^1.0.0-alpha.2",
-    "zeroant-response": "^1.0.0-alpha.2"
+    "zeroant-response": "^1.0.0-alpha.21"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }
