@@ -7,7 +7,7 @@ export class RedisPlugin extends AddonPlugin {
     constructor(context) {
         super(context);
         this._config = context.config.addons.get(RedisConfig);
-        this._redis = new Redis(this._config.options);
+        this._redis = new Redis(this._config.redisUrl, this._config.options);
     }
     async initialize() {
         if (this._redis != null && this._redis !== undefined && ['connect', 'ready'].includes(this._redis.status)) {
@@ -74,7 +74,7 @@ export class RedisPlugin extends AddonPlugin {
         console.info(new Date(), '[RedisPlugin]: Stopped');
     }
     clone() {
-        return new Redis(this.options);
+        return new Redis(this._config.redisUrl, this.options);
     }
     get instance() {
         return this._redis;

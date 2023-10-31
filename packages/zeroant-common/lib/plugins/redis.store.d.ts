@@ -15,7 +15,9 @@ export interface RedisClusterConfig {
     nodes: ClusterNode[];
     options?: ClusterOptions;
 }
-export declare function redisStore(options?: (RedisOptions | {
+export declare function redisStore(options?: ((RedisOptions & {
+    url?: string;
+}) | {
     clusterConfig: RedisClusterConfig;
 } | {
     redis: Redis.Redis | Cluster;

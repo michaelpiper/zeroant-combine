@@ -131,6 +131,7 @@ export class CacheManagerPlugin extends AddonPlugin {
         catch (error) {
             this.redisCache = await cacheManager.caching(redisStore, {
                 ...config.options,
+                url: config.redisUrl,
                 ttl: this.maxTtl
             });
         }

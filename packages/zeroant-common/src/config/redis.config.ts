@@ -7,8 +7,6 @@ export class RedisConfig extends AddonConfig {
   }
 
   get options(): IORedisOptions {
-    return {
-      path: this.redisUrl
-    }
+    return {}
   }
 }
