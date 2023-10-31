@@ -14,5 +14,5 @@ export abstract class AddonPlugin {
 
   beforeStart() {}
 
-  close() {}
+  close(): Promise<void> | void {}
 }

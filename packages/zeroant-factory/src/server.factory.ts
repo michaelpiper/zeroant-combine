@@ -19,5 +19,5 @@ export abstract class ServerFactory {
     return async (req, res) => {}
   }
 
-  close(): void {}
+  close(): Promise<void> | void {}
 }

@@ -47,7 +47,7 @@ export const loaders = async (customConfig = {}) => {
     })
         .on('uncaughtException', (err) => {
         console.trace(err);
-        zeroant.safeExit(0, 'uncaughtException');
+        zeroant.safeExit(1, 'uncaughtException');
     });
     return zeroant;
 };

@@ -38,27 +38,27 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
    */
 
   process.on('beforeExit', () => {
-    zeroant.safeExit(0, 'beforeExit')
+    void zeroant.safeExit(0, 'beforeExit')
   }) // catches ctrl+c event
   process
     .on('SIGINT', () => {
-      zeroant.safeExit(0, 'SIGINT')
+      void zeroant.safeExit(0, 'SIGINT')
     })
     .on('SIGQUIT', () => {
-      zeroant.safeExit(1, 'SIGQUIT')
+      void zeroant.safeExit(1, 'SIGQUIT')
     })
     .on('SIGTERM', () => {
-      zeroant.safeExit(1, 'SIGTERM')
+      void zeroant.safeExit(1, 'SIGTERM')
     })
     .on('SIGHUP', () => {
-      zeroant.safeExit(1, 'SIGHUP')
+      void zeroant.safeExit(1, 'SIGHUP')
     })
     .on('SIGBREAK', () => {
-      zeroant.safeExit(1, 'SIGBREAK')
+      void zeroant.safeExit(1, 'SIGBREAK')
     })
     .on('uncaughtException', (err) => {
       console.trace(err)
-      zeroant.safeExit(1, 'uncaughtException')
+      void zeroant.safeExit(1, 'uncaughtException')
     })
   return zeroant
 }

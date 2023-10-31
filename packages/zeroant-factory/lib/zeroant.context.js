@@ -97,7 +97,7 @@ export class ZeroantContext {
     }
     safeExit(code, signal) {
         if (signal !== undefined)
-            console.info(`Received ${signal}.`);
+            console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`);
         this.close();
         process.exit(code);
     }

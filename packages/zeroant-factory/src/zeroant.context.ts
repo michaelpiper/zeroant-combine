@@ -113,31 +113,50 @@ export class ZeroantContext<Config extends ConfigFactory> {
     return this.#store.has(key)
   }
 
-  safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): void {
+  async safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): Promise<void> {
     if (signal !== undefined) console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`)
-    this.close()
+    await this.close()
     process.exit(code)
   }
 
-  close() {
+  async close() {
     this.#event.emit(ZeroantEvent.CLOSE)
+    const wait: Array<Promise<any>> = []
     for (const plugin of this.plugin.values()) {
-      plugin.close()
+      wait.push(
+        Promise.resolve().then(async () => {
+          await plugin.close()
+        })
+      )
     }
     for (const server of this._servers) {
-      server.close()
+      wait.push(
+        Promise.resolve().then(async () => {
+          await server.close()
+        })
+      )
     }
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!this._server) {
       return
     }
-    ;(this.config as ConfigFactory).logging('info', () => {
+    wait.push(
+      new Promise<void>((resolve) => {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (!this._server) {
+          resolve()
+          return
+        }
+        this._server.close((err) => {
+          if (err != null) {
+            console.trace(err)
+          }
+          resolve()
+        })
+      })
+    )
+    this.config.logging('info', () => {
       console.info(new Date(), '[ZeroantContext]: Stopped')
-    })
-    this._server.close((err: any) => {
-      if (err != null) {
-        throw Error()
-      }
     })
   }
 
