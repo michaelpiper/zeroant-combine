@@ -1,6 +1,6 @@
 {
   "name": "zeroant",
-  "version": "1.0.0-alpha.25",
+  "version": "1.0.0-alpha.26",
   "description": "modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant.git",
   "main": "lib/index.js",
@@ -61,11 +61,11 @@
     "lodash": "^4.17.21",
     "nodemon": "^3.0.1",
     "react-json-editor-ajrm": "^2.5.14",
-    "zeroant-common": "^1.0.0-alpha.25",
+    "zeroant-common": "^1.0.0-alpha.26",
     "zeroant-config": "^1.0.0-alpha.25",
     "zeroant-constant": "^1.0.0-alpha.20",
     "zeroant-factory": "^1.0.0-alpha.25",
-    "zeroant-loader": "^1.0.0-alpha.25",
+    "zeroant-loader": "^1.0.0-alpha.26",
     "zeroant-logger": "^1.0.0-alpha.25",
     "zeroant-response": "^1.0.0-alpha.21",
     "zeroant-util": "^1.0.0-alpha.21"

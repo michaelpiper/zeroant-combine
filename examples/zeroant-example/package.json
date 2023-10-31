@@ -1,6 +1,6 @@
 {
   "name": "zeroant-example",
-  "version": "1.0.0-alpha.25",
+  "version": "1.0.0-alpha.26",
   "description": "test modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant.git",
   "main": "lib/index.js",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@prisma/client": "^5.3.0",
     "prisma": "^5.3.0",
-    "zeroant": "^1.0.0-alpha.25"
+    "zeroant": "^1.0.0-alpha.26"
   },
   "devDependencies": {
     "@types/flat": "^5.0.2",
