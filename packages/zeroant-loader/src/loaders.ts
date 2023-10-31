@@ -28,14 +28,20 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
   }
   zeroant.ready()
   process
-    .on('exit', () => {
-      zeroant.close()
-    })
     .on('SIGINT', () => {
-      process.exit()
+      zeroant.safeExit(0, 'SIGINT')
+    })
+    .on('SIGQUIT', () => {
+      zeroant.safeExit(1, 'SIGQUIT')
     })
     .on('SIGTERM', () => {
-      process.exit()
+      zeroant.safeExit(1, 'SIGTERM')
+    })
+    .on('SIGHUP', () => {
+      zeroant.safeExit(1, 'SIGHUP')
+    })
+    .on('SIGBREAK', () => {
+      zeroant.safeExit(1, 'SIGBREAK')
     })
   return zeroant
 }

@@ -113,6 +113,12 @@ export class ZeroantContext<Config extends ConfigFactory> {
     return this.#store.has(key)
   }
 
+  safeExit(code?: number, signal?: NodeJS.Signals): void {
+    if (signal !== undefined) console.info(`Received ${signal}.`)
+    this.close()
+    process.exit(code)
+  }
+
   close() {
     this.#event.emit(ZeroantEvent.CLOSE)
     for (const plugin of this.plugin.values()) {

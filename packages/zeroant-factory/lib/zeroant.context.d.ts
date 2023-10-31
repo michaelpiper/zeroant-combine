@@ -1,4 +1,5 @@
 /// <reference types="node" resolution-mode="require"/>
+/// <reference types="node" resolution-mode="require"/>
 import { type Server } from 'http';
 import { ZeroantEvent } from 'zeroant-constant';
 import { type ServerFactoryConstructor, type ServerFactory } from './server.factory.js';
@@ -30,6 +31,7 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     onStart(): void;
     beforeStart(): void;
     has(key: string): boolean;
+    safeExit(code?: number, signal?: NodeJS.Signals): void;
     close(): void;
     bootstrap(registry: RegistryFactory): void;
     get hasRegistry(): boolean;

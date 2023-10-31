@@ -95,6 +95,12 @@ export class ZeroantContext {
     has(key) {
         return this.#store.has(key);
     }
+    safeExit(code, signal) {
+        if (signal !== undefined)
+            console.info(`Received ${signal}.`);
+        this.close();
+        process.exit(code);
+    }
     close() {
         this.#event.emit(ZeroantEvent.CLOSE);
         for (const plugin of this.plugin.values()) {
