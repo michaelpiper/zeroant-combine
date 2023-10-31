@@ -1,6 +1,6 @@
 {
   "name": "zeroant-common",
-  "version": "1.0.0-alpha.24",
+  "version": "1.0.0-alpha.25",
   "description": "Common modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-common.git",
   "main": "lib/index.js",
@@ -71,11 +71,11 @@
     "eslint-plugin-promise": "^6.1.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4",
-    "zeroant-config": "^1.0.0-alpha.21",
+    "zeroant-config": "^1.0.0-alpha.25",
     "zeroant-constant": "^1.0.0-alpha.0",
-    "zeroant-factory": "^1.0.0-alpha.21",
-    "zeroant-loader": "^1.0.0-alpha.21",
-    "zeroant-logger": "^1.0.0-alpha.21",
+    "zeroant-factory": "^1.0.0-alpha.25",
+    "zeroant-loader": "^1.0.0-alpha.25",
+    "zeroant-logger": "^1.0.0-alpha.25",
     "zeroant-response": "^1.0.0-alpha.21",
     "zeroant-util": "^1.0.0-alpha.21"
   },
