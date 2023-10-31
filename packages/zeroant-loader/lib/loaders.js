@@ -23,15 +23,31 @@ export const loaders = async (customConfig = {}) => {
         zeroant.initServer(AddonServer, registry);
     }
     zeroant.ready();
-    process
-        .on('exit', () => {
+    process.on('exit', () => {
         zeroant.close();
-    })
+    });
+    process.on('beforeExit', () => {
+        zeroant.safeExit(0, 'beforeExit');
+    });
+    process
         .on('SIGINT', () => {
-        process.exit();
+        zeroant.safeExit(0, 'SIGINT');
+    })
+        .on('SIGQUIT', () => {
+        zeroant.safeExit(1, 'SIGQUIT');
     })
         .on('SIGTERM', () => {
-        process.exit();
+        zeroant.safeExit(1, 'SIGTERM');
+    })
+        .on('SIGHUP', () => {
+        zeroant.safeExit(1, 'SIGHUP');
+    })
+        .on('SIGBREAK', () => {
+        zeroant.safeExit(1, 'SIGBREAK');
+    })
+        .on('uncaughtException', (err) => {
+        console.trace(err);
+        zeroant.safeExit(0, 'uncaughtException');
     });
     return zeroant;
 };

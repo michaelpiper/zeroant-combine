@@ -27,6 +27,19 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
     zeroant.initServer(AddonServer, registry)
   }
   zeroant.ready()
+  process.on('exit', () => {
+    zeroant.close()
+  })
+  /**
+   * on the following events,
+   * the process will not end if there are
+   * event-handlers attached,
+   * therefore we have to call process.exit()
+   */
+
+  process.on('beforeExit', () => {
+    zeroant.safeExit(0, 'beforeExit' as any)
+  }) // catches ctrl+c event
   process
     .on('SIGINT', () => {
       zeroant.safeExit(0, 'SIGINT')
@@ -42,6 +55,10 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
     })
     .on('SIGBREAK', () => {
       zeroant.safeExit(1, 'SIGBREAK')
+    })
+    .on('uncaughtException', (err) => {
+      console.trace(err)
+      zeroant.safeExit(0, 'uncaughtException' as any)
     })
   return zeroant
 }
