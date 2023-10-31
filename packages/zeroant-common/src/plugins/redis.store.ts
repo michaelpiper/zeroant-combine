@@ -97,7 +97,7 @@ export interface RedisClusterConfig {
 }
 
 export async function redisStore(
-  options?: (RedisOptions | { clusterConfig: RedisClusterConfig } | { redis: Redis.Redis | Cluster }) & Config
+  options?: ((RedisOptions & { url?: string }) | { clusterConfig: RedisClusterConfig } | { redis: Redis.Redis | Cluster }) & Config
 ) {
   options ||= {} as any
   const redisCache =
@@ -105,7 +105,7 @@ export async function redisStore(
       ? options.redis
       : 'clusterConfig' in options!
       ? new Redis.Cluster(options.clusterConfig.nodes, options.clusterConfig.options)
-      : new Redis.Redis(options!)
+      : new Redis.Redis(options!.url!, options!)
 
   return redisInsStore(redisCache, options)
 }

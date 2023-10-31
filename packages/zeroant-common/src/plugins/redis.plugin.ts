@@ -11,7 +11,7 @@ export class RedisPlugin extends AddonPlugin {
   constructor(context: ZeroantContext<ConfigFactory>) {
     super(context)
     this._config = context.config.addons.get(RedisConfig)
-    this._redis = new Redis(this._config.options)
+    this._redis = new Redis(this._config.redisUrl, this._config.options)
   }
 
   async initialize(): Promise<void> {
@@ -84,7 +84,7 @@ export class RedisPlugin extends AddonPlugin {
   }
 
   clone() {
-    return new Redis(this.options)
+    return new Redis(this._config.redisUrl, this.options)
   }
 
   get instance() {
