@@ -169,7 +169,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
     this.config.logging('info', () => {
       console.info(new Date(), '[ZeroantContext]: Stopped')
     })
-    await this.delay(10)
+    await this.delay(500)
   }
 
   bootstrap(registry: RegistryFactory) {
