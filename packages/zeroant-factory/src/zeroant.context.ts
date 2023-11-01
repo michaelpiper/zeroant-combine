@@ -145,10 +145,6 @@ export class ZeroantContext<Config extends ConfigFactory> {
         })
       )
     }
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!this._server) {
-      return
-    }
     wait.push(
       new Promise<void>((resolve) => {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

@@ -107,7 +107,7 @@ export class ZeroantContext {
         if (signal !== undefined)
             console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`);
         await this.close(ts);
-        process.exit(code);
+        process.exitCode = code;
     }
     async close(ts) {
         this.#state = 'closing';
