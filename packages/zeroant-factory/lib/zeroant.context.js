@@ -129,6 +129,7 @@ export class ZeroantContext {
                 resolve();
             });
         }));
+        await Promise.all(wait);
         this.config.logging('info', () => {
             console.info(new Date(), '[ZeroantContext]: Stopped');
         });
