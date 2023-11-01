@@ -1,6 +1,6 @@
 {
   "name": "zeroant-factory",
-  "version": "1.0.0-alpha.34",
+  "version": "1.0.0-alpha.35",
   "description": "Factory modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-factory.git",
   "main": "lib/index.js",
