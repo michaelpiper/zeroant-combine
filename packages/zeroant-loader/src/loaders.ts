@@ -27,9 +27,6 @@ export const loaders = async (customConfig: CustomConfig & { registry?: Registry
     zeroant.initServer(AddonServer, registry)
   }
   zeroant.ready()
-  process.on('exit', () => {
-    void zeroant.close()
-  })
   /**
    * on the following events,
    * the process will not end if there are
