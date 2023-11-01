@@ -98,7 +98,7 @@ export class ZeroantContext {
         return this.#store.has(key);
     }
     #exiting = false;
-    async safeExit(code, signal) {
+    async safeExit(code, signal, ts) {
         this.#state = 'exiting';
         if (this.#exiting) {
             return;
@@ -106,10 +106,10 @@ export class ZeroantContext {
         this.#exiting = true;
         if (signal !== undefined)
             console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`);
-        await this.close();
+        await this.close(ts);
         process.exit(code);
     }
-    async close() {
+    async close(ts) {
         this.#state = 'closing';
         this.#event.emit(ZeroantEvent.CLOSE);
         const wait = [];
@@ -143,7 +143,7 @@ export class ZeroantContext {
         this.config.logging('info', () => {
             console.info(new Date(), '[ZeroantContext]: Stopped');
         });
-        await this.delay(500);
+        await this.delay(ts ?? 500);
     }
     bootstrap(registry) {
         if (this.hasRegistry) {
