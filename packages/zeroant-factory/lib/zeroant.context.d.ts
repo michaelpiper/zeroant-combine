@@ -19,6 +19,7 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     protected _hostname: string;
     _servers: ServerFactory[];
     constructor(Config: new (config: any) => Config);
+    delay: (ms: number) => Promise<unknown>;
     initWorkers(workers: Array<WorkerFactoryConstructor<WorkerFactory<any, any>>>): void;
     getWorkerByName<T extends WorkerFactory<any, any>>(workerName: string): T | undefined;
     getWorkerNames(): IterableIterator<string>;
@@ -50,6 +51,7 @@ export declare class ZeroantContext<Config extends ConfigFactory> {
     getPlugin<T extends AddonPlugin>(addon: AddonPluginConstructor<T>): T;
     get log(): Logger;
     get server(): Server;
+    get state(): string;
     get plugin(): Plugin;
     get config(): Config;
     on(eventName: ZeroantEvent, listener: (...args: any[]) => void): this;

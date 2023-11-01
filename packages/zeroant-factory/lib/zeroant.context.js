@@ -19,6 +19,7 @@ export class ZeroantContext {
     constructor(Config) {
         this.Config = Config;
     }
+    delay = async (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     initWorkers(workers) {
         for (const Worker of workers) {
             const worker = new Worker(this);
@@ -142,6 +143,7 @@ export class ZeroantContext {
         this.config.logging('info', () => {
             console.info(new Date(), '[ZeroantContext]: Stopped');
         });
+        await this.delay(10);
     }
     bootstrap(registry) {
         if (this.hasRegistry) {
@@ -230,6 +232,9 @@ export class ZeroantContext {
     }
     get server() {
         return this._server;
+    }
+    get state() {
+        return this.#state;
     }
     get plugin() {
         return this.getPlugins();

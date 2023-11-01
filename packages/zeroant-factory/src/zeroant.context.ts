@@ -285,6 +285,10 @@ export class ZeroantContext<Config extends ConfigFactory> {
     return this._server
   }
 
+  get state(): string {
+    return this.#state
+  }
+
   get plugin(): Plugin {
     return this.getPlugins()
   }
