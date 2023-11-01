@@ -23,7 +23,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   #registry: RegistryFactory
   _servers: ServerFactory[] = []
   constructor(private readonly Config: new (config: any) => Config) {}
-
+  delay = async (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
   initWorkers(workers: Array<WorkerFactoryConstructor<WorkerFactory<any, any>>>) {
     for (const Worker of workers) {
       const worker = new Worker(this)
@@ -169,6 +169,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
     this.config.logging('info', () => {
       console.info(new Date(), '[ZeroantContext]: Stopped')
     })
+    await this.delay(10)
   }
 
   bootstrap(registry: RegistryFactory) {

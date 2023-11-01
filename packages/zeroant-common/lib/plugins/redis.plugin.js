@@ -70,7 +70,7 @@ export class RedisPlugin extends AddonPlugin {
     async close() {
         if (!['end'].includes(this._redis.status)) {
             await this._redis.quit().catch((e) => {
-                this.debug('error', e);
+                this.debug('error', e.message);
             });
         }
         console.info(new Date(), '[RedisPlugin]: Stopped');
