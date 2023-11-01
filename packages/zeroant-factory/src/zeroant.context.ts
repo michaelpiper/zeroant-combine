@@ -116,18 +116,18 @@ export class ZeroantContext<Config extends ConfigFactory> {
 
   #exiting = false
 
-  async safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): Promise<void> {
+  async safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException', ts?: number): Promise<void> {
     this.#state = 'exiting'
     if (this.#exiting) {
       return
     }
     this.#exiting = true
     if (signal !== undefined) console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`)
-    await this.close()
+    await this.close(ts)
     process.exit(code)
   }
 
-  async close() {
+  async close(ts?: number) {
     this.#state = 'closing'
     this.#event.emit(ZeroantEvent.CLOSE)
     const wait: Array<Promise<any>> = []
@@ -169,7 +169,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
     this.config.logging('info', () => {
       console.info(new Date(), '[ZeroantContext]: Stopped')
     })
-    await this.delay(500)
+    await this.delay(ts ?? 500)
   }
 
   bootstrap(registry: RegistryFactory) {
