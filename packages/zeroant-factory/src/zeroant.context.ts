@@ -16,6 +16,7 @@ export class ZeroantContext<Config extends ConfigFactory> {
   protected _server: Server
   protected _port: number
   protected _hostname: string
+  #state = 'idle'
   #store = new Map()
   #workers = new Map<string, WorkerFactory<any, any>>()
   #event = new EventEmitter()
@@ -113,13 +114,21 @@ export class ZeroantContext<Config extends ConfigFactory> {
     return this.#store.has(key)
   }
 
+  #exiting = false
+
   async safeExit(code?: number, signal?: NodeJS.Signals | 'exit' | 'beforeExit' | 'uncaughtException'): Promise<void> {
+    this.#state = 'exiting'
+    if (this.#exiting) {
+      return
+    }
+    this.#exiting = true
     if (signal !== undefined) console.info(new Date(), '[ZeroantContext]:', `Received ${signal}.`)
     await this.close()
     process.exit(code)
   }
 
   async close() {
+    this.#state = 'closing'
     this.#event.emit(ZeroantEvent.CLOSE)
     const wait: Array<Promise<any>> = []
     for (const plugin of this.plugin.values()) {
@@ -149,13 +158,14 @@ export class ZeroantContext<Config extends ConfigFactory> {
         }
         this._server.close((err) => {
           if (err != null) {
-            console.trace(err)
+            console.error(err.message)
           }
           resolve()
         })
       })
     )
     await Promise.all(wait)
+    this.#state = 'closed'
     this.config.logging('info', () => {
       console.info(new Date(), '[ZeroantContext]: Stopped')
     })

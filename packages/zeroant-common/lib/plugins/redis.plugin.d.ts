@@ -12,7 +12,7 @@ export declare class RedisPlugin extends AddonPlugin {
     has(key: string): Promise<boolean>;
     set(key: string, value: JsonValue, ttl?: number | string): Promise<boolean>;
     del(key: string): Promise<boolean>;
-    close(): void;
+    close(): Promise<void>;
     clone(): Redis;
     get instance(): Redis;
     get options(): import("ioredis").RedisOptions;
