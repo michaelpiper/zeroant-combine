@@ -1,6 +1,6 @@
 {
   "name": "zeroant-config",
-  "version": "1.0.0-alpha.33",
+  "version": "1.0.0-alpha.34",
   "description": "config modules for zeroant",
   "repository": "git@github.com:michaelpiper/zeroant-config.git",
   "main": "lib/index.js",
@@ -39,7 +39,7 @@
     "@types/node": "^20.8.0",
     "eslint": "^8.40.0",
     "typescript": "^5.0.4",
-    "zeroant-factory": "^1.0.0-alpha.33"
+    "zeroant-factory": "^1.0.0-alpha.34"
   },
   "gitHead": "eb33e879f773af06a1b91e03b25089f31cbaa582"
 }
