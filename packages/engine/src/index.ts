@@ -1,2 +1,1 @@
-#!/usr/bin/env node
-import './cli.js'
+export { default } from 'zeroant-loader/zeroant'

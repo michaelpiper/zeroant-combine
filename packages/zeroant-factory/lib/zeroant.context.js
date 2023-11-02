@@ -112,7 +112,7 @@ export class ZeroantContext {
     async close(ts) {
         this.#state = 'closing';
         this.#event.emit(ZeroantEvent.CLOSE);
-        const wait = [];
+        const wait = [this.delay(ts ?? 0)];
         for (const plugin of this.plugin.values()) {
             wait.push(Promise.resolve().then(async () => {
                 await plugin.close();
@@ -140,7 +140,6 @@ export class ZeroantContext {
         this.config.logging('info', () => {
             console.info(new Date(), '[ZeroantContext]: Stopped');
         });
-        await this.delay(ts ?? 500);
     }
     bootstrap(registry) {
         if (this.hasRegistry) {
