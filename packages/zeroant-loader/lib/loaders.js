@@ -23,9 +23,6 @@ export const loaders = async (customConfig = {}) => {
         zeroant.initServer(AddonServer, registry);
     }
     zeroant.ready();
-    process.on('exit', () => {
-        void zeroant.close();
-    });
     process.on('beforeExit', () => {
         void zeroant.safeExit(0, 'beforeExit');
     });
